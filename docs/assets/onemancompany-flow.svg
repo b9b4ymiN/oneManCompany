@@ -1,111 +1,124 @@
-<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1280" height="860" viewBox="0 0 1280 860" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="40" y1="20" x2="1220" y2="740" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F8FAFC"/>
-      <stop offset="1" stop-color="#E2E8F0"/>
+    <linearGradient id="bg" x1="30" y1="20" x2="1220" y2="824" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F5"/>
+      <stop offset="1" stop-color="#F6E7DA"/>
     </linearGradient>
-    <linearGradient id="accent" x1="88" y1="92" x2="1180" y2="676" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0EA5E9"/>
-      <stop offset="1" stop-color="#7C3AED"/>
+    <linearGradient id="ink" x1="84" y1="120" x2="1180" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D97745"/>
+      <stop offset="1" stop-color="#8B5A3C"/>
     </linearGradient>
-    <filter id="shadow" x="0" y="0" width="1280" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.10"/>
+    <filter id="shadow" x="0" y="0" width="1280" height="860" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#5B341F" flood-opacity="0.12"/>
     </filter>
     <style>
-      .title { font: 700 34px Inter, Segoe UI, Arial, sans-serif; fill: #0F172A; }
-      .subtitle { font: 600 17px Inter, Segoe UI, Arial, sans-serif; fill: #475569; }
-      .boxTitle { font: 700 17px Inter, Segoe UI, Arial, sans-serif; fill: #0F172A; }
-      .boxText { font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #475569; }
-      .chip { font: 700 12px Inter, Segoe UI, Arial, sans-serif; fill: #0F172A; }
+      .title { font: 700 34px Inter, Segoe UI, Arial, sans-serif; fill: #2B1C14; }
+      .subtitle { font: 600 17px Inter, Segoe UI, Arial, sans-serif; fill: #7C4A2D; }
+      .boxTitle { font: 700 17px Inter, Segoe UI, Arial, sans-serif; fill: #2B1C14; }
+      .boxText { font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #6B4A38; }
+      .chip { font: 700 12px Inter, Segoe UI, Arial, sans-serif; fill: #2B1C14; }
     </style>
   </defs>
-  <rect width="1280" height="760" rx="28" fill="url(#bg)"/>
-  <text x="72" y="72" class="title">onemancompany system flow</text>
-  <text x="72" y="102" class="subtitle">Interface → Kernel → Registry → Observability → Adapter → Protocol, plus the mission lifecycle used by Investment War Room</text>
+  <rect width="1280" height="860" rx="28" fill="url(#bg)"/>
+  <text x="70" y="70" class="title">onemancompany architecture and execution flow</text>
+  <text x="70" y="100" class="subtitle">A stable company kernel orchestrates people-like agent roles, evidence, protocol messages, and durable decision memory.</text>
 
   <g filter="url(#shadow)">
-    <rect x="72" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
-    <rect x="280" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
-    <rect x="488" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
-    <rect x="696" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
-    <rect x="904" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
-    <rect x="1112" y="150" width="120" height="92" rx="18" fill="#FFFFFF"/>
+    <rect x="70" y="140" width="180" height="100" rx="18" fill="#FFFFFF"/>
+    <rect x="280" y="140" width="180" height="100" rx="18" fill="#FFFFFF"/>
+    <rect x="490" y="140" width="180" height="100" rx="18" fill="#FFFFFF"/>
+    <rect x="700" y="140" width="180" height="100" rx="18" fill="#FFFFFF"/>
+    <rect x="910" y="140" width="180" height="100" rx="18" fill="#FFFFFF"/>
+    <rect x="1120" y="140" width="110" height="100" rx="18" fill="#FFFFFF"/>
   </g>
 
   <g>
-    <text x="96" y="184" class="boxTitle">Interface</text>
-    <text x="96" y="206" class="boxText">Owner brief</text>
-    <text x="96" y="224" class="boxText">Review surfaces</text>
+    <text x="96" y="176" class="boxTitle">Interface</text>
+    <text x="96" y="200" class="boxText">owner brief</text>
+    <text x="96" y="220" class="boxText">review checkpoints</text>
 
-    <text x="304" y="184" class="boxTitle">Kernel</text>
-    <text x="304" y="206" class="boxText">Planner</text>
-    <text x="304" y="224" class="boxText">State machine</text>
+    <text x="306" y="176" class="boxTitle">Kernel</text>
+    <text x="306" y="200" class="boxText">planner · state machine</text>
+    <text x="306" y="220" class="boxText">constitution · synthesis</text>
 
-    <text x="512" y="184" class="boxTitle">Registry</text>
-    <text x="512" y="206" class="boxText">Agents</text>
-    <text x="512" y="224" class="boxText">Models · Sources</text>
+    <text x="516" y="176" class="boxTitle">Registry</text>
+    <text x="516" y="200" class="boxText">agents · models</text>
+    <text x="516" y="220" class="boxText">sources · domains</text>
 
-    <text x="720" y="184" class="boxTitle">Observability</text>
-    <text x="720" y="206" class="boxText">Calls · Gates</text>
-    <text x="720" y="224" class="boxText">Journal · Replay</text>
+    <text x="726" y="176" class="boxTitle">Observability</text>
+    <text x="726" y="200" class="boxText">traces · journals</text>
+    <text x="726" y="220" class="boxText">replay · scorecards</text>
 
-    <text x="928" y="184" class="boxTitle">Adapter</text>
-    <text x="928" y="206" class="boxText">Provider bridge</text>
-    <text x="928" y="224" class="boxText">Execution surface</text>
+    <text x="936" y="176" class="boxTitle">Adapter</text>
+    <text x="936" y="200" class="boxText">Claude · Gemini</text>
+    <text x="936" y="220" class="boxText">Codex · ZAI · human</text>
 
-    <text x="1136" y="184" class="boxTitle">Protocol</text>
-    <text x="1136" y="206" class="boxText">Messages</text>
-    <text x="1136" y="224" class="boxText">Contracts</text>
+    <text x="1140" y="176" class="boxTitle">Protocol</text>
+    <text x="1140" y="200" class="boxText">messages</text>
+    <text x="1140" y="220" class="boxText">contracts</text>
   </g>
 
-  <path d="M242 196H280" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M450 196H488" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M658 196H696" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M866 196H904" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M1074 196H1112" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M250 190H280" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M460 190H490" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M670 190H700" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M880 190H910" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1090 190H1120" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
 
-  <text x="72" y="312" class="boxTitle">Mission lifecycle</text>
-  <text x="72" y="334" class="boxText">Formal progression from brief to journaled decision</text>
+  <text x="70" y="304" class="boxTitle">Mission lifecycle</text>
+  <text x="70" y="330" class="boxText">The kernel moves every mission through a formal sequence so evidence, debate, and decisions are auditable.</text>
 
   <g filter="url(#shadow)">
-    <rect x="72" y="372" width="92" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="184" y="372" width="106" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="310" y="372" width="126" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="456" y="372" width="134" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="610" y="372" width="114" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="744" y="372" width="104" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="868" y="372" width="110" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="998" y="372" width="136" height="54" rx="14" fill="#FFFFFF"/>
-    <rect x="1154" y="372" width="92" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="70" y="372" width="92" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="180" y="372" width="110" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="308" y="372" width="130" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="456" y="372" width="138" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="612" y="372" width="116" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="746" y="372" width="106" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="870" y="372" width="114" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="1002" y="372" width="140" height="56" rx="14" fill="#FFFFFF"/>
+    <rect x="1160" y="372" width="90" height="56" rx="14" fill="#FFFFFF"/>
   </g>
-
   <g class="chip">
-    <text x="99" y="405">DRAFT</text>
-    <text x="210" y="405">PLANNING</text>
-    <text x="334" y="405">RESEARCHING</text>
-    <text x="480" y="405">HUMAN_REVIEW</text>
-    <text x="638" y="405">ANALYZING</text>
-    <text x="773" y="405">CROSS_QA</text>
-    <text x="898" y="405">DEBATING</text>
-    <text x="1026" y="405">SYNTHESIZING</text>
-    <text x="1178" y="405">DECIDED</text>
+    <text x="97" y="406">DRAFT</text>
+    <text x="205" y="406">PLANNING</text>
+    <text x="333" y="406">RESEARCHING</text>
+    <text x="480" y="406">HUMAN_REVIEW</text>
+    <text x="640" y="406">ANALYZING</text>
+    <text x="776" y="406">CROSS_QA</text>
+    <text x="899" y="406">DEBATING</text>
+    <text x="1030" y="406">SYNTHESIZING</text>
+    <text x="1182" y="406">DECIDED</text>
   </g>
-
-  <path d="M164 399H184" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M290 399H310" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M436 399H456" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M590 399H610" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M724 399H744" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M848 399H868" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M978 399H998" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
-  <path d="M1134 399H1154" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M162 400H180" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M290 400H308" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M438 400H456" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M594 400H612" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M728 400H746" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M852 400H870" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M984 400H1002" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1142 400H1160" stroke="url(#ink)" stroke-width="4" stroke-linecap="round"/>
 
   <g filter="url(#shadow)">
-    <rect x="438" y="474" width="404" height="170" rx="22" fill="#FFFFFF"/>
+    <rect x="70" y="500" width="360" height="246" rx="22" fill="#FFFFFF"/>
+    <rect x="460" y="500" width="360" height="246" rx="22" fill="#FFFFFF"/>
+    <rect x="850" y="500" width="360" height="246" rx="22" fill="#FFFFFF"/>
   </g>
-  <text x="470" y="512" class="boxTitle">Investment War Room execution pattern</text>
-  <text x="470" y="540" class="boxText">Researcher sequential → analysts parallel → structured debate → CIO synthesis → journal</text>
-  <text x="470" y="570" class="boxText">Constitution enforces no valuation before normalized earnings review.</text>
-  <text x="470" y="596" class="boxText">Evidence score drives low-evidence human gating and data-gap visibility.</text>
-  <text x="470" y="622" class="boxText">Outputs remain auditable through journal, trace, and source-grounded records.</text>
+
+  <text x="96" y="538" class="boxTitle">1. Inputs and operating law</text>
+  <text x="96" y="566" class="boxText">• owner brief enters through the interface</text>
+  <text x="96" y="590" class="boxText">• domain config selects the roster and mission type</text>
+  <text x="96" y="614" class="boxText">• company constitution blocks unsafe progress</text>
+  <text x="96" y="638" class="boxText">• evidence standard defines how facts and claims behave</text>
+
+  <text x="486" y="538" class="boxTitle">2. Multi-agent reasoning loop</text>
+  <text x="486" y="566" class="boxText">• researchers gather primary evidence</text>
+  <text x="486" y="590" class="boxText">• analysts work in parallel from different worldviews</text>
+  <text x="486" y="614" class="boxText">• cross-QA and debate preserve disagreement</text>
+  <text x="486" y="638" class="boxText">• CIO synthesizes one decision-ready output</text>
+
+  <text x="876" y="538" class="boxTitle">3. Durable outputs</text>
+  <text x="876" y="566" class="boxText">• journal captures the final decision state</text>
+  <text x="876" y="590" class="boxText">• observability stores calls, gates, and evidence</text>
+  <text x="876" y="614" class="boxText">• replay and scorecards enable system learning</text>
+  <text x="876" y="638" class="boxText">• new domains reuse the same kernel contracts</text>
 </svg>

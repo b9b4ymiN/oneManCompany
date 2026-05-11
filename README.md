@@ -4,55 +4,62 @@
 
 ![onemancompany icon](docs/assets/onemancompany-icon.svg)
 
-> A company-kernel architecture for a one-person, AI-agent operating company.
+> A company-kernel architecture for a one-person AI-agent operating company.
 
-## What this project is
+## Overview
 
-**onemancompany** is a blueprint-driven system for turning a single owner into a
-company operator supported by specialized AI agents, shared evidence standards,
-formal lifecycle control, and durable decision memory.
+**onemancompany** is a blueprint-first project for building a personal company
+system powered by multiple AI agents, formal operating rules, structured
+evidence, and durable decision memory.
 
-The core idea is simple:
+The core idea is:
 
-- **one owner**
-- **many agents**
-- **one kernel**
-- **one evidence standard**
-- **one auditable decision process**
+- one owner
+- many specialized agents
+- one stable company kernel
+- one shared evidence standard
+- one auditable mission lifecycle
 
-The first domain is **Investment War Room**: a structured environment for
-researching businesses, challenging assumptions, preserving disagreement, and
-turning evidence into a decision state instead of a vague recommendation.
+The first domain is **Investment War Room** — a system for evidence-backed
+investment analysis, structured disagreement, synthesis, and decision journaling.
 
-## Core philosophy
+## Design direction
 
-The project follows the principles defined in `onemancompany-blueprint-v2.md`:
+This repository follows a warm, premium visual direction inspired by the
+professional feel of Claude-like product design: calm neutrals, soft sand,
+bronze, and deep espresso tones. The design goal is clarity, seriousness, and
+trust — not hype.
 
-- **Company-first, tool-second** — the operating model matters more than any
-  single model or CLI.
-- **Agent ≠ Model** — agents are durable roles; models are replaceable engines.
-- **Evidence-first** — facts, assumptions, estimates, and management claims must
-  stay explicitly separated.
-- **Observable by default** — missions, agent calls, messages, evidence, and
-  decisions must remain inspectable.
-- **Preserve disagreement** — unresolved differences between agents are surfaced,
-  not averaged away.
-
-## Current repository status
+## Current status
 
 ### Delivery status
 
 - **Phase 0 — Specification Freeze:** complete
-- **Phase 1 — Kernel Core:** not implemented in this repository yet
-- **Practical status:** this repository is **Phase 1-ready**
+- **Phase 1 — Kernel Core:** not implemented yet in this repository
+- **Practical state:** ready to begin Phase 1 implementation
 
-This means the repository currently contains the foundational specifications,
-registries, and domain definitions required **before** kernel code should be
-written.
+This repo currently contains the contracts, registries, flows, schemas, and
+domain definitions required before runtime code should be written.
 
-## What exists today
+## Visual assets
 
-### Foundational specification documents
+### Project banner
+
+- `docs/assets/onemancompany-banner.svg`
+
+### Project icon
+
+- `docs/assets/onemancompany-icon.svg`
+
+### Architecture and execution flow
+
+![onemancompany system flow](docs/assets/onemancompany-flow.svg)
+
+- `docs/assets/onemancompany-flow.svg`
+
+## What the project actually contains
+
+### Specifications
 
 - `docs/PROJECT_CHARTER.md`
 - `docs/ARCHITECTURE.md`
@@ -65,95 +72,95 @@ written.
 - `docs/EVIDENCE_STANDARD.md`
 - `docs/DOMAIN_TEMPLATE.md`
 
-### Registry layer
+### Registries
 
-- `registry/agents/*.yaml` — 12 Investment War Room agent cards
-- `registry/models.yaml` — model registry and routing preferences
-- `registry/sources.yaml` — source groups, document catalog, and market mapping
+- `registry/agents/*.yaml` — 12 Investment War Room agents
+- `registry/models.yaml` — model and routing registry
+- `registry/sources.yaml` — source groups and document catalog
 
-### Domain layer
+### Domains
 
 - `domains/investment-war-room/domain.yaml`
 - `domains/investment-war-room/domain-constitution.yaml`
 - `domains/investment-war-room/missions/*.yaml`
 - `domains/investment-war-room/journal/investment-journal.yaml`
-- `domains/_template/*` — reusable domain template
+- `domains/_template/*`
 
-## Visuals
+## Tech stack
 
-### Banner
+### Current repository stack
 
-- `docs/assets/onemancompany-banner.svg`
+This phase is intentionally **document-first**.
 
-### Icon
+| Layer | Current stack |
+| --- | --- |
+| Specification | Markdown + YAML |
+| Persistence contract | SQLite schema |
+| Visual assets | SVG |
+| Validation used in repo | markdownlint, yamllint, Python YAML parsing, SQLite in-memory parse |
+| Source of truth | `onemancompany-blueprint-v2.md` |
 
-- `docs/assets/onemancompany-icon.svg`
+### Planned implementation stack from the blueprint
 
-### System flow
+| Concern | Planned stack |
+| --- | --- |
+| Kernel / orchestration | TypeScript / Node.js |
+| CLI / interface | TypeScript CLI |
+| Persistence | SQLite |
+| Validation | Zod runtime schemas |
+| Adapters | Claude, Gemini, Codex, ZAI, Human, future local LLM |
+| Domain runtime | Investment War Room first |
 
-![onemancompany system flow](docs/assets/onemancompany-flow.svg)
+## Architecture flow
 
-- `docs/assets/onemancompany-flow.svg`
+The architecture defined in `docs/ARCHITECTURE.md` is centered on a stable
+kernel with replaceable outer layers.
 
-## Architecture at a glance
+### Layer map
 
-The repository is organized around the architecture defined in
-`docs/ARCHITECTURE.md`:
+1. **Interface** — receives owner input and renders human review/output
+2. **Kernel** — planner, lifecycle, constitution, synthesis, coordination
+3. **Registry** — agents, models, sources, domains
+4. **Observability** — traces, journals, replay, scorecards
+5. **Adapter** — provider and runtime bridges
+6. **Protocol** — internal message contracts
 
-1. **Interface Layer**
-2. **Kernel Layer**
-3. **Registry Layer**
-4. **Observability Layer**
-5. **Adapter Layer**
-6. **Protocol Layer**
+### Mission flow
 
-The future runtime should keep the **Company Kernel** as the stable center and
-allow models, tools, adapters, and interfaces to evolve around it.
+A future runtime should follow this operational sequence:
 
-## Mission lifecycle
-
-The formal lifecycle is defined in `docs/MISSION_LIFECYCLE.md`.
-
-The operational states are:
-
-- `DRAFT`
-- `PLANNING`
-- `RESEARCHING`
-- `HUMAN_REVIEW`
-- `ANALYZING`
-- `CROSS_QA`
-- `DEBATING`
-- `SYNTHESIZING`
-- `DECIDED`
-- `JOURNALED`
-
-With `FAILED` as the terminal error state.
-
-This lifecycle is designed to prevent silent failure and ensure that evidence,
-agent outputs, debate rounds, human gates, and journaling all happen in a
-controlled order.
+1. owner submits a brief
+2. kernel plans the mission
+3. researchers gather evidence
+4. analysts produce parallel perspectives
+5. cross-QA and debate test assumptions
+6. CIO synthesizes a decision-ready output
+7. journal records the result and follow-up state
 
 ## Investment War Room
 
-The first working domain is **Investment War Room**.
+The first domain turns the kernel into an investment decision company.
 
-Its purpose is to support disciplined investment analysis through:
+It is designed to support:
 
 - official-source research
 - normalized-earnings review
 - valuation and downside analysis
-- cross-agent challenge and debate
-- CIO-level synthesis
-- decision journaling and follow-up tracking
-
-The current roster includes 12 agent definitions, including:
-
-- researcher agents
-- forensic/accounting analysis
-- valuation and downside specialists
-- portfolio and technical viewpoints
+- cross-agent challenge
+- disagreement preservation
 - CIO synthesis
-- formal report generation
+- decision journaling
+
+The current roster includes 12 roles such as:
+
+- `researcher-set`
+- `researcher-us`
+- `forensic-accountant`
+- `damodaran-valuation`
+- `klarman-downside`
+- `portfolio-allocator`
+- `cio-synthesizer`
+- `book-master`
 
 See:
 
@@ -161,23 +168,23 @@ See:
 - `registry/agents/*.yaml`
 - `domains/investment-war-room/domain.yaml`
 
-## Why Phase 0 matters
+## Why this repository matters before code
 
-The blueprint explicitly requires specification completeness before code. This
-repository now captures the critical contracts needed to begin implementation:
+The blueprint explicitly warns against starting implementation before the spec is
+clear. This repository reduces that risk by locking down:
 
-- what an agent is
-- what every important output must contain
-- how evidence is classified and scored
-- how debate is bounded
-- how constitutional rules block bad decisions
-- how journal persistence is structured
-- how a new domain should be defined
+- the mission state machine
+- agent identity and output contracts
+- debate rules
+- constitutional guardrails
+- evidence labels and source tiers
+- journal persistence shape
+- domain extensibility rules
 
-That reduces invention pressure in Phase 1 and makes the future kernel easier to
-build, validate, and audit.
+That means Phase 1 can build against a stable contract instead of inventing core
+behavior ad hoc.
 
-## Repository map
+## Repository structure
 
 ```text
 onemancompany/
@@ -193,7 +200,8 @@ onemancompany/
 │   ├── JOURNAL_SCHEMA.md
 │   ├── JOURNAL_SCHEMA.sql
 │   ├── EVIDENCE_STANDARD.md
-│   └── DOMAIN_TEMPLATE.md
+│   ├── DOMAIN_TEMPLATE.md
+│   └── assets/
 ├── registry/
 │   ├── agents/
 │   ├── models.yaml
@@ -203,66 +211,63 @@ onemancompany/
     └── investment-war-room/
 ```
 
-## How to use this repository right now
-
-This repository is currently best used as a **design and implementation
-reference**, not as a runnable product.
-
-Recommended reading order:
+## Recommended reading order
 
 1. `onemancompany-blueprint-v2.md`
 2. `docs/PROJECT_CHARTER.md`
 3. `docs/ARCHITECTURE.md`
 4. `docs/MISSION_LIFECYCLE.md`
-5. `docs/AGENT_MODEL.md`
-6. `docs/EVIDENCE_STANDARD.md`
-7. `docs/COMPANY_CONSTITUTION.md`
+5. `docs/EVIDENCE_STANDARD.md`
+6. `docs/COMPANY_CONSTITUTION.md`
+7. `docs/AGENT_MODEL.md`
 8. `domains/investment-war-room/domain.yaml`
 
 ## Validation status
 
-The current specification set has been validated with local repository checks:
+The current repository artifacts have already passed local validation:
 
-- Markdown lint passed
-- YAML lint passed
-- YAML parsing passed
-- SQLite schema parsed successfully in memory
-- agent/domain/source cross-reference checks passed
-- final spec review returned **APPROVE / CLEAR** for the generated artifacts
+- Markdown lint
+- YAML lint
+- YAML parse checks
+- SQLite in-memory schema parse
+- agent, source, and path cross-reference checks
+- final artifact review with approval/clear result on generated Phase 0 assets
 
 ## What comes next
 
-The next logical step is **Phase 1 — Kernel Core**, which should implement:
+The next implementation milestone is **Phase 1 — Kernel Core**.
+
+That phase should focus on:
 
 - mission state machine
 - mission planner
 - registry loaders
 - constitution enforcement
-- context budget management
-- decision journal writer
+- context budget logic
+- journal writer
 - observability foundations
 
-The key rule for that phase is simple:
+In short:
 
-> build against the contracts in this repository, not around them.
+> build the kernel against these contracts, not around them.
 
 ## Scope boundary
 
 This repository does **not** currently include:
 
 - runtime kernel code
-- agent adapters
-- UI or web application code
-- deployment configuration
-- live model integrations
+- adapter implementations
+- web UI
+- deployment infrastructure
+- live model execution
 
-Those belong to later implementation phases.
+Those belong to the implementation phases that follow.
 
 ## Source of truth
 
-The primary design source is:
+Primary design source:
 
 - `onemancompany-blueprint-v2.md`
 
-The generated repository specifications should be read as the implementation
+The files in `docs/`, `registry/`, and `domains/` are the implementation-facing
 contracts derived from that blueprint.

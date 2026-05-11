@@ -1,21 +1,36 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="32" y1="24" x2="224" y2="232" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0F172A"/>
-      <stop offset="1" stop-color="#1D4ED8"/>
+    <linearGradient id="bg" x1="28" y1="20" x2="228" y2="236" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A120D"/>
+      <stop offset="0.6" stop-color="#3B2418"/>
+      <stop offset="1" stop-color="#7C4A2D"/>
     </linearGradient>
-    <linearGradient id="ring" x1="58" y1="58" x2="198" y2="198" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7DD3FC"/>
-      <stop offset="1" stop-color="#A78BFA"/>
+    <linearGradient id="ring" x1="56" y1="56" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6D7B8"/>
+      <stop offset="1" stop-color="#E89B63"/>
+    </linearGradient>
+    <linearGradient id="nodeA" x1="128" y1="58" x2="128" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F3B37A"/>
+      <stop offset="1" stop-color="#D97745"/>
+    </linearGradient>
+    <linearGradient id="nodeB" x1="179" y1="147" x2="204" y2="171" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5E2CF"/>
+      <stop offset="1" stop-color="#C98C5A"/>
+    </linearGradient>
+    <linearGradient id="nodeC" x1="52" y1="147" x2="79" y2="171" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5E2CF"/>
+      <stop offset="1" stop-color="#C98C5A"/>
     </linearGradient>
   </defs>
-  <rect x="16" y="16" width="224" height="224" rx="48" fill="url(#bg)"/>
-  <circle cx="128" cy="128" r="62" stroke="url(#ring)" stroke-width="12"/>
-  <circle cx="128" cy="128" r="14" fill="#F8FAFC"/>
-  <circle cx="128" cy="70" r="10" fill="#38BDF8"/>
-  <circle cx="183" cy="160" r="10" fill="#C084FC"/>
-  <circle cx="73" cy="160" r="10" fill="#22C55E"/>
-  <path d="M128 84V114" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round"/>
-  <path d="M118 136L82 154" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round"/>
-  <path d="M138 136L174 154" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round"/>
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#bg)"/>
+  <rect x="16" y="16" width="224" height="224" rx="52" stroke="#F5E2CF" stroke-opacity="0.15"/>
+  <circle cx="128" cy="128" r="60" stroke="url(#ring)" stroke-width="12"/>
+  <circle cx="128" cy="128" r="15" fill="#FFF7ED"/>
+  <path d="M128 84V110" stroke="#FFF7ED" stroke-width="8" stroke-linecap="round"/>
+  <path d="M116 138L84 154" stroke="#FFF7ED" stroke-width="8" stroke-linecap="round"/>
+  <path d="M140 138L172 154" stroke="#FFF7ED" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="128" cy="72" r="12" fill="url(#nodeA)"/>
+  <circle cx="183" cy="160" r="12" fill="url(#nodeB)"/>
+  <circle cx="73" cy="160" r="12" fill="url(#nodeC)"/>
+  <path d="M98 198C111 205 120 208 128 208C136 208 145 205 158 198" stroke="#F6D7B8" stroke-opacity="0.6" stroke-width="4" stroke-linecap="round"/>
 </svg>
