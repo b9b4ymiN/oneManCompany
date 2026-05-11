@@ -1,0 +1,111 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="20" x2="1220" y2="740" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="88" y1="92" x2="1180" y2="676" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0EA5E9"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1280" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .title { font: 700 34px Inter, Segoe UI, Arial, sans-serif; fill: #0F172A; }
+      .subtitle { font: 600 17px Inter, Segoe UI, Arial, sans-serif; fill: #475569; }
+      .boxTitle { font: 700 17px Inter, Segoe UI, Arial, sans-serif; fill: #0F172A; }
+      .boxText { font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #475569; }
+      .chip { font: 700 12px Inter, Segoe UI, Arial, sans-serif; fill: #0F172A; }
+    </style>
+  </defs>
+  <rect width="1280" height="760" rx="28" fill="url(#bg)"/>
+  <text x="72" y="72" class="title">onemancompany system flow</text>
+  <text x="72" y="102" class="subtitle">Interface → Kernel → Registry → Observability → Adapter → Protocol, plus the mission lifecycle used by Investment War Room</text>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
+    <rect x="280" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
+    <rect x="488" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
+    <rect x="696" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
+    <rect x="904" y="150" width="170" height="92" rx="18" fill="#FFFFFF"/>
+    <rect x="1112" y="150" width="120" height="92" rx="18" fill="#FFFFFF"/>
+  </g>
+
+  <g>
+    <text x="96" y="184" class="boxTitle">Interface</text>
+    <text x="96" y="206" class="boxText">Owner brief</text>
+    <text x="96" y="224" class="boxText">Review surfaces</text>
+
+    <text x="304" y="184" class="boxTitle">Kernel</text>
+    <text x="304" y="206" class="boxText">Planner</text>
+    <text x="304" y="224" class="boxText">State machine</text>
+
+    <text x="512" y="184" class="boxTitle">Registry</text>
+    <text x="512" y="206" class="boxText">Agents</text>
+    <text x="512" y="224" class="boxText">Models · Sources</text>
+
+    <text x="720" y="184" class="boxTitle">Observability</text>
+    <text x="720" y="206" class="boxText">Calls · Gates</text>
+    <text x="720" y="224" class="boxText">Journal · Replay</text>
+
+    <text x="928" y="184" class="boxTitle">Adapter</text>
+    <text x="928" y="206" class="boxText">Provider bridge</text>
+    <text x="928" y="224" class="boxText">Execution surface</text>
+
+    <text x="1136" y="184" class="boxTitle">Protocol</text>
+    <text x="1136" y="206" class="boxText">Messages</text>
+    <text x="1136" y="224" class="boxText">Contracts</text>
+  </g>
+
+  <path d="M242 196H280" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M450 196H488" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M658 196H696" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M866 196H904" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1074 196H1112" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+
+  <text x="72" y="312" class="boxTitle">Mission lifecycle</text>
+  <text x="72" y="334" class="boxText">Formal progression from brief to journaled decision</text>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="372" width="92" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="184" y="372" width="106" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="310" y="372" width="126" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="456" y="372" width="134" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="610" y="372" width="114" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="744" y="372" width="104" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="868" y="372" width="110" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="998" y="372" width="136" height="54" rx="14" fill="#FFFFFF"/>
+    <rect x="1154" y="372" width="92" height="54" rx="14" fill="#FFFFFF"/>
+  </g>
+
+  <g class="chip">
+    <text x="99" y="405">DRAFT</text>
+    <text x="210" y="405">PLANNING</text>
+    <text x="334" y="405">RESEARCHING</text>
+    <text x="480" y="405">HUMAN_REVIEW</text>
+    <text x="638" y="405">ANALYZING</text>
+    <text x="773" y="405">CROSS_QA</text>
+    <text x="898" y="405">DEBATING</text>
+    <text x="1026" y="405">SYNTHESIZING</text>
+    <text x="1178" y="405">DECIDED</text>
+  </g>
+
+  <path d="M164 399H184" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M290 399H310" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M436 399H456" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M590 399H610" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M724 399H744" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M848 399H868" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M978 399H998" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1134 399H1154" stroke="url(#accent)" stroke-width="4" stroke-linecap="round"/>
+
+  <g filter="url(#shadow)">
+    <rect x="438" y="474" width="404" height="170" rx="22" fill="#FFFFFF"/>
+  </g>
+  <text x="470" y="512" class="boxTitle">Investment War Room execution pattern</text>
+  <text x="470" y="540" class="boxText">Researcher sequential → analysts parallel → structured debate → CIO synthesis → journal</text>
+  <text x="470" y="570" class="boxText">Constitution enforces no valuation before normalized earnings review.</text>
+  <text x="470" y="596" class="boxText">Evidence score drives low-evidence human gating and data-gap visibility.</text>
+  <text x="470" y="622" class="boxText">Outputs remain auditable through journal, trace, and source-grounded records.</text>
+</svg>

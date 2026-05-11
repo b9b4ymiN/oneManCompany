@@ -1,0 +1,42 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="50" y1="20" x2="1120" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617"/>
+      <stop offset="0.55" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="line" x1="140" y1="76" x2="1000" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <filter id="glow" x="0" y="0" width="1200" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feBlend in="SourceGraphic" in2="blur" mode="screen"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="320" rx="28" fill="url(#bg)"/>
+  <g opacity="0.12">
+    <circle cx="1070" cy="72" r="120" fill="#38BDF8"/>
+    <circle cx="968" cy="254" r="150" fill="#A78BFA"/>
+    <circle cx="186" cy="278" r="120" fill="#22C55E"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M826 72H1026" stroke="url(#line)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M826 160H1086" stroke="url(#line)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M826 248H1006" stroke="url(#line)" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="802" cy="72" r="18" fill="#38BDF8"/>
+    <circle cx="1110" cy="160" r="18" fill="#A78BFA"/>
+    <circle cx="782" cy="248" r="18" fill="#22C55E"/>
+    <circle cx="926" cy="160" r="26" stroke="#E2E8F0" stroke-width="6"/>
+    <circle cx="926" cy="160" r="10" fill="#F8FAFC"/>
+    <path d="M926 134V149" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
+    <path d="M903 173L886 183" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
+    <path d="M949 173L966 183" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g>
+    <text x="78" y="108" fill="#E2E8F0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="42" font-weight="700">onemancompany</text>
+    <text x="78" y="150" fill="#7DD3FC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="600">AI-agent company kernel</text>
+    <text x="78" y="194" fill="#CBD5E1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18">One owner • many agents • one kernel • one evidence standard • one auditable decision process</text>
+    <text x="78" y="236" fill="#94A3B8" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16">Phase 0 complete • Investment War Room defined • Phase 1-ready contracts on disk</text>
+  </g>
+</svg>

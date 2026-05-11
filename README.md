@@ -1,5 +1,9 @@
 # onemancompany
 
+![onemancompany banner](docs/assets/onemancompany-banner.svg)
+
+![onemancompany icon](docs/assets/onemancompany-icon.svg)
+
 > A company-kernel architecture for a one-person, AI-agent operating company.
 
 ## What this project is
@@ -74,6 +78,22 @@ written.
 - `domains/investment-war-room/missions/*.yaml`
 - `domains/investment-war-room/journal/investment-journal.yaml`
 - `domains/_template/*` — reusable domain template
+
+## Visuals
+
+### Banner
+
+- `docs/assets/onemancompany-banner.svg`
+
+### Icon
+
+- `docs/assets/onemancompany-icon.svg`
+
+### System flow
+
+![onemancompany system flow](docs/assets/onemancompany-flow.svg)
+
+- `docs/assets/onemancompany-flow.svg`
 
 ## Architecture at a glance
 
