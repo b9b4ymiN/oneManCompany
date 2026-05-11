@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@onemancompany/kernel": ["packages/kernel/src/index.ts"],
+      "@onemancompany/kernel/*": ["packages/kernel/src/*"],
+      "@onemancompany/adapters": ["packages/adapters/src/index.ts"],
+      "@onemancompany/adapters/*": ["packages/adapters/src/*"],
+      "@onemancompany/observability": ["packages/observability/src/index.ts"],
+      "@onemancompany/observability/*": ["packages/observability/src/*"]
+    }
+  }
+}
