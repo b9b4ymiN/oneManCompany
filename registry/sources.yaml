@@ -1,0 +1,153 @@
+document_catalog:
+  annual_report_56_1:
+    market_group: thai-set
+    source_id: annual_report_56_1
+    default_label: FACT
+  set_quarterly_filing:
+    market_group: thai-set
+    source_id: set_quarterly_filing
+    default_label: FACT
+  mdna:
+    market_group: thai-set
+    source_id: opportunity_day
+    default_label: MANAGEMENT_CLAIM
+    note: Domain required-document identifiers resolve through document_catalog ids such as mdna.
+  sec_10k:
+    market_group: us-sec-edgar
+    source_id: sec_10k
+    default_label: FACT
+  sec_10q:
+    market_group: us-sec-edgar
+    source_id: sec_10q
+    default_label: FACT
+market_aliases:
+  us-nyse: us-sec-edgar
+  us-nasdaq: us-sec-edgar
+markets:
+  thai-set:
+    tier_1_sources:
+      - id: set_quarterly_filing
+        name: SET Quarterly Filing (56-2)
+        url_pattern: https://www.set.or.th/en/market/filings
+        reliability: tier_1
+        label_as: FACT
+        use_for:
+          - financial_results
+          - corporate_action
+          - official_disclosure
+      - id: annual_report_56_1
+        name: 56-1 One Report (Annual)
+        url_pattern: https://market.sec.or.th/public/idisc/en/FinancialStatement
+        reliability: tier_1
+        label_as: FACT
+        use_for:
+          - business_model
+          - risk_factor
+          - segment_data
+          - five_year_summary
+    tier_2_sources:
+      - id: opportunity_day
+        name: Opportunity Day / Analyst Meeting
+        reliability: tier_2
+        label_as: MANAGEMENT_CLAIM
+        use_for:
+          - management_guidance
+          - strategy_context
+        note: Label must remain MANAGEMENT_CLAIM until corroborated.
+    tier_3_sources:
+      - id: analyst_report
+        name: Broker Analyst Report
+        reliability: tier_3
+        label_as: UNVERIFIED
+        use_for:
+          - market_expectation
+          - peer_comparison
+          - consensus_forecast
+    tier_4_sources:
+      - id: news_thai
+        name: Thai Financial News
+        reliability: tier_4
+        label_as: UNVERIFIED
+        use_for:
+          - recent_event
+          - sentiment
+          - catalyst_timing
+    tier_5_sources:
+      - id: social_media
+        name: Social Media / Chat Groups
+        reliability: tier_5
+        label_as: UNVERIFIED
+        use_for:
+          - rumor_monitoring_only
+        warning: Never use as the basis of analysis.
+  us-sec-edgar:
+    tier_1_sources:
+      - id: sec_10k
+        name: SEC Form 10-K
+        url_pattern: https://www.sec.gov/edgar/search/
+        reliability: tier_1
+        label_as: FACT
+        use_for:
+          - annual_financials
+          - risk_factors
+          - business_description
+      - id: sec_10q
+        name: SEC Form 10-Q
+        url_pattern: https://www.sec.gov/edgar/search/
+        reliability: tier_1
+        label_as: FACT
+        use_for:
+          - quarterly_financials
+          - updates_to_risk
+          - liquidity_notes
+      - id: sec_8k
+        name: SEC Form 8-K
+        url_pattern: https://www.sec.gov/edgar/search/
+        reliability: tier_1
+        label_as: FACT
+        use_for:
+          - material_events
+          - acquisitions
+          - executive_changes
+    tier_2_sources:
+      - id: earnings_call_transcript
+        name: Earnings Call Transcript
+        reliability: tier_2
+        label_as: MANAGEMENT_CLAIM
+        use_for:
+          - guidance
+          - management_color
+          - capital_allocation_commentary
+      - id: investor_presentation
+        name: Investor Presentation
+        reliability: tier_2
+        label_as: MANAGEMENT_CLAIM
+        use_for:
+          - segment_story
+          - strategy_context
+    tier_3_sources:
+      - id: broker_research_us
+        name: Broker Research Report
+        reliability: tier_3
+        label_as: UNVERIFIED
+        use_for:
+          - consensus_estimates
+          - peer_valuation
+          - market_expectation
+    tier_4_sources:
+      - id: financial_press_us
+        name: Financial Press / Newswire
+        reliability: tier_4
+        label_as: UNVERIFIED
+        use_for:
+          - event_monitoring
+          - sentiment
+          - catalyst_timing
+    tier_5_sources:
+      - id: social_media_us
+        name: Social Media / Forum Threads
+        reliability: tier_5
+        label_as: UNVERIFIED
+        use_for:
+          - rumor_monitoring_only
+        warning: Never use as the basis of analysis.

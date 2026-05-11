@@ -1,0 +1,27 @@
+id: "klarman-downside"
+name: "Klarman Downside Partner"
+role: "analyst"
+persona: "Seth Klarman"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "zai-default"
+  - "claude-opus"
+context_share: "risk_and_downside_context"
+interaction_rules:
+  can_question:
+    - "researcher-set"
+    - "researcher-us"
+    - "forensic-accountant"
+    - "damodaran-valuation"
+  must_challenge:
+    - "optimistic_growth"
+    - "weak_margin_of_safety"
+  cannot_question:
+    - "cio-synthesizer"
+output_schema_ref: "docs/AGENT_MODEL.md#5-klarman-downside"
+mandatory_fields:
+  - "downside_case_summary"
+  - "bear_case_value"
+  - "margin_of_safety_required_pct"
+  - "conviction_level"

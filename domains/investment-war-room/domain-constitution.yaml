@@ -1,0 +1,33 @@
+company_constitution:
+  - id: no_analysis_without_normalized_earnings
+    description: No valuation may proceed until normalized earnings has passed forensic review.
+    enforcement: BLOCK_MISSION
+    applies_to:
+      - damodaran-valuation
+      - klarman-downside
+    exception: none
+  - id: evidence_required_for_all_facts
+    description: Every FACT-labeled claim must include a declared source tier and source reference.
+    enforcement: REJECT_OUTPUT
+    applies_to: all_agents
+    exception: none
+  - id: data_gap_must_surface
+    description: If a critical field cannot be found, the owner must be informed before the mission proceeds.
+    enforcement: INSERT_HUMAN_REVIEW
+    applies_to: researcher_agents
+    exception: none
+  - id: no_buy_sell_recommendation
+    description: The system outputs decision_state values, not direct buy/sell recommendations.
+    enforcement: REJECT_OUTPUT
+    applies_to: all_agents
+    exception: none
+  - id: low_evidence_score_gate
+    description: Evidence score below 40 requires human review before analysis proceeds.
+    enforcement: INSERT_HUMAN_REVIEW
+    applies_to: evidence_controller
+    exception: owner_explicit_override
+  - id: uncertainty_must_be_explicit
+    description: Every assumption must be labeled and must state what the conclusion is sensitive to.
+    enforcement: WARN_AND_FLAG
+    applies_to: all_agents
+    exception: none

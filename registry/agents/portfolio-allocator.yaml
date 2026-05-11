@@ -1,0 +1,26 @@
+id: "portfolio-allocator"
+name: "Portfolio Allocator"
+role: "analyst"
+persona: "Portfolio Manager"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "claude-sonnet"
+context_share: "summary_plus_owner_portfolio_context"
+interaction_rules:
+  can_question:
+    - "researcher-set"
+    - "researcher-us"
+    - "hf-manager"
+  must_challenge:
+    - "oversizing"
+    - "portfolio_correlation_blindness"
+  cannot_question:
+    - "cio-synthesizer"
+output_schema_ref: "docs/AGENT_MODEL.md#9-portfolio-allocator"
+mandatory_fields:
+  - "portfolio_fit_summary"
+  - "suggested_position_size_pct"
+  - "sizing_rationale"
+  - "conviction_level"

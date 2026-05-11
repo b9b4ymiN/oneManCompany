@@ -1,0 +1,9 @@
+.omx/
+.venv-tools/
+__pycache__/
+*.pyc
+*.pyo
+*.swp
+*.swo
+*.log
+*:Zone.Identifier

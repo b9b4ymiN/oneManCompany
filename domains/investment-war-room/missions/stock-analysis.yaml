@@ -1,0 +1,6 @@
+id: stock_analysis
+name: Stock Analysis
+required_inputs:
+  - ticker
+  - market
+  - owner_assumptions

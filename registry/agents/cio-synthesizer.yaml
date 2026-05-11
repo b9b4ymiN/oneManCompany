@@ -1,0 +1,26 @@
+id: "cio-synthesizer"
+name: "CIO Synthesizer"
+role: "synthesizer"
+persona: "CIO"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "claude-sonnet"
+context_share: "agent_output_summaries_plus_debate_records"
+interaction_rules:
+  can_question:
+    - "all_analysis_agents"
+  must_preserve:
+    - "unresolved_disagreement"
+    - "data_gaps"
+  cannot_be_challenged_in_upstream_rounds: true
+output_schema_ref: "docs/AGENT_MODEL.md#11-cio-synthesizer"
+mandatory_fields:
+  - "decision_state"
+  - "fair_value_conservative"
+  - "price_to_watch"
+  - "evidence_score"
+  - "thesis_breakers"
+  - "follow_up_events"
+  - "conviction_level"

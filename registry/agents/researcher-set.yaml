@@ -1,0 +1,22 @@
+id: "researcher-set"
+name: "SET/SEC Researcher"
+role: "researcher"
+persona: "SET/SEC Expert"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "gemini-2-flash"
+  - "claude-opus"
+context_share: "full_evidence_pack"
+interaction_rules:
+  can_question:
+    []
+  can_answer:
+    - "all_analysis_agents"
+  cannot_be_challenged_on_fact_without_evidence_request: true
+output_schema_ref: "docs/AGENT_MODEL.md#1-researcher-set"
+mandatory_fields:
+  - "source_log"
+  - "documents_collected"
+  - "evidence_pack_status"
+  - "recommended_next_step"

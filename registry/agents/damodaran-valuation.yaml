@@ -1,0 +1,28 @@
+id: "damodaran-valuation"
+name: "Damodaran Valuation Partner"
+role: "analyst"
+persona: "Prof. Damodaran"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "zai-default"
+context_share: "financial_plus_business_model"
+interaction_rules:
+  can_question:
+    - "researcher-set"
+    - "researcher-us"
+    - "forensic-accountant"
+  must_challenge:
+    - "growth_assumptions"
+    - "margin_expansion"
+  cannot_question:
+    - "cio-synthesizer"
+output_schema_ref: "docs/AGENT_MODEL.md#4-damodaran-valuation"
+mandatory_fields:
+  - "fair_value_conservative"
+  - "fair_value_base"
+  - "fair_value_optimistic"
+  - "implied_growth_at_market_price"
+  - "conviction_level"
+  - "what_would_change_my_mind"

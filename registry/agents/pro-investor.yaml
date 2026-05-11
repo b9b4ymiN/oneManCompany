@@ -1,0 +1,25 @@
+id: "pro-investor"
+name: "Pro Investor"
+role: "analyst"
+persona: "Owner Framework"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "claude-sonnet"
+context_share: "summary_plus_owner_framework"
+interaction_rules:
+  can_question:
+    - "researcher-set"
+    - "researcher-us"
+    - "forensic-accountant"
+    - "damodaran-valuation"
+  must_challenge:
+    - "owner_framework_mismatch"
+  cannot_question:
+    - "cio-synthesizer"
+output_schema_ref: "docs/AGENT_MODEL.md#10-pro-investor"
+mandatory_fields:
+  - "checklist_results"
+  - "owner_fit_summary"
+  - "conviction_level"

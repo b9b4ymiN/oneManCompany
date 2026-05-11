@@ -1,0 +1,23 @@
+id: "forensic-accountant"
+name: "Forensic Accountant"
+role: "analyst"
+persona: "Forensic Accountant"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "claude-sonnet"
+context_share: "financial_statements_and_notes"
+interaction_rules:
+  can_question:
+    - "researcher-set"
+    - "researcher-us"
+  must_challenge:
+    - "reported_profit_quality"
+  cannot_question:
+    - "cio-synthesizer"
+output_schema_ref: "docs/AGENT_MODEL.md#3-forensic-accountant"
+mandatory_fields:
+  - "normalized_earnings_base"
+  - "cashflow_quality"
+  - "conviction_level"

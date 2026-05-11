@@ -1,0 +1,92 @@
+models:
+  gemini-2-flash:
+    provider: gemini
+    context_limit_tokens: 1000000
+    cost_per_1k:
+      input_usd: 0.0
+      output_usd: 0.0
+      note: planning placeholder from blueprint context policy
+    preferred_for:
+      - research
+      - long_document_reading
+      - evidence_research
+      - first_pass_extraction
+  claude-opus:
+    provider: claude
+    context_limit_tokens: 200000
+    cost_per_1k:
+      input_usd: 0.015
+      output_usd: null
+      note: planning placeholder from blueprint context policy
+    preferred_for:
+      - synthesis
+      - complex_reasoning
+      - valuation_reasoning
+      - final_report
+      - debate
+    runtime_model_id: claude-opus-4-5
+  claude-opus-4-5:
+    provider: claude
+    context_limit_tokens: 200000
+    cost_per_1k:
+      input_usd: 0.015
+      output_usd: null
+      note: canonical runtime id from blueprint model registry
+    preferred_for:
+      - synthesis
+      - complex_reasoning
+      - valuation_reasoning
+      - final_report
+      - debate
+  claude-sonnet:
+    provider: claude
+    context_limit_tokens: 200000
+    cost_per_1k:
+      input_usd: null
+      output_usd: null
+      note: configurable runtime value, not fixed in blueprint
+    preferred_for:
+      - balanced_analysis
+      - drafting
+      - mid_cost_reasoning
+      - fallback_synthesis
+  zai-default:
+    provider: zai
+    context_limit_tokens: 128000
+    cost_per_1k:
+      input_usd: 0.001
+      output_usd: null
+      note: planning placeholder from blueprint context policy
+    preferred_for:
+      - analysis
+      - parallel_tasks
+      - adversarial_review
+      - cheap_parallel_reasoning
+  codex-default:
+    provider: codex
+    context_limit_tokens: 128000
+    cost_per_1k:
+      input_usd: null
+      output_usd: null
+      note: configurable runtime value for local coding and validation tasks
+    preferred_for:
+      - validator_building
+      - quant_script
+      - data_transform
+      - structured_output
+routing_policy:
+  evidence_research:
+    - gemini-2-flash
+    - claude-opus
+  valuation_reasoning:
+    - claude-opus
+    - zai-default
+  adversarial_review:
+    - zai-default
+    - claude-opus
+  final_synthesis:
+    - claude-opus
+    - claude-sonnet
+  code_or_validator:
+    - codex-default
+    - claude-opus

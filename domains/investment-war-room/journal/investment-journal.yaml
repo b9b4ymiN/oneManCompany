@@ -1,0 +1,9 @@
+id: investment-journal
+extends_sql_schema: ../../../docs/JOURNAL_SCHEMA.sql
+required_sections:
+  - subject
+  - decision
+  - valuation
+  - evidence
+  - thesis_breakers
+  - follow_up_events

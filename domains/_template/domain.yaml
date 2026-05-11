@@ -1,0 +1,82 @@
+id: <domain-id>
+name: <Domain Name>
+version: "1.0"
+description: <Short domain description>
+constitution:
+  mode: reference
+  rules_file: domain-constitution.yaml
+  rules: []
+default_team:
+  coordinator: null
+  researchers: []
+  analysts: []
+  synthesizer: null
+  documenter: null
+  always_include: []
+mission_types:
+  - id: <mission-type-id>
+    description: <Mission type description>
+    template: null
+    default_agents: []
+    required_inputs: []
+    output_contract:
+      required_fields: []
+      report_sections: []
+markets: []
+source_groups: []
+market_to_source_group: {}
+execution_plan:
+  research_mode: sequential
+  analysis_mode: parallel
+  synthesis_mode: single
+  document_mode: single
+  debate_enabled: true
+  max_debate_rounds: 3
+  evidence_request_rounds: 2
+human_checkpoints:
+  after_analysis:
+    mode: disabled
+    state: HUMAN_REVIEW
+    gate_name: Gate2
+    gate_type: OPTIONAL_GATE
+    triggered_after_state: ANALYZING
+    condition: <Optional analysis review rule>
+  after_synthesis:
+    mode: always
+    state: HUMAN_REVIEW
+    gate_name: Gate3
+    gate_type: MANDATORY_GATE
+    triggered_after_state: SYNTHESIZING
+    condition: <Owner confirmation rule>
+  on_low_evidence:
+    mode: always
+    state: HUMAN_REVIEW
+    gate_name: Gate1
+    gate_type: CONDITIONAL_GATE
+    triggered_after_state: RESEARCHING
+    condition: <Low evidence threshold rule>
+evidence_requirements:
+  minimum_tier_1_sources: 0
+  minimum_total_sources: 0
+  required_documents: []
+  required_documents_by_source_group: {}
+  critical_fields: []
+  proceed_threshold: 70
+  human_review_threshold: 40
+  abort_recommend_threshold: 20
+context_budget_policy:
+  preferred_models: {}
+  warn_if_above_percent: 70
+  compress_if_above_percent: 80
+  always_preserve: []
+  role_overrides: {}
+output:
+  mandatory_report_sections: []
+  mandatory_fields: []
+  forbidden_content: []
+journal:
+  required: true
+  template: journal/domain-journal.yaml
+  schema_doc: null
+  sql_schema: null
+  outcome_tracking: true

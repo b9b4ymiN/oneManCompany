@@ -1,0 +1,211 @@
+id: investment-war-room
+name: Investment War Room
+version: "1.0"
+description: Investment analysis and decision making for Thai and US markets
+constitution:
+  mode: reference
+  rules_file: domain-constitution.yaml
+  rules: []
+default_team:
+  coordinator: null
+  researchers:
+    - researcher-set
+    - researcher-us
+  analysts:
+    - forensic-accountant
+    - damodaran-valuation
+    - klarman-downside
+    - peter-lynch-story
+    - hf-manager
+    - technical-analyst
+    - portfolio-allocator
+    - pro-investor
+  synthesizer: cio-synthesizer
+  documenter: book-master
+  always_include:
+    - pro-investor
+markets:
+  - thai-set
+  - us-nyse
+  - us-nasdaq
+source_groups:
+  - thai-set
+  - us-sec-edgar
+market_to_source_group:
+  thai-set: thai-set
+  us-nyse: us-sec-edgar
+  us-nasdaq: us-sec-edgar
+mission_types:
+  - id: stock_analysis
+    description: Full evidence-backed company analysis with valuation, downside, and decision state.
+    template: missions/stock-analysis.yaml
+    default_agents:
+      - researcher-set
+      - forensic-accountant
+      - damodaran-valuation
+      - klarman-downside
+      - portfolio-allocator
+      - pro-investor
+      - cio-synthesizer
+      - book-master
+    required_inputs:
+      - ticker
+      - market
+      - owner_assumptions
+    output_contract:
+      required_fields:
+        - decision_state
+        - normalized_earnings_base
+        - fair_value_conservative
+        - price_for_mos_30
+        - price_to_watch
+        - evidence_score
+        - thesis_breakers
+        - follow_up_events
+      report_sections:
+        - decision_summary
+        - evidence_quality
+        - normalized_earnings
+        - valuation
+        - downside_case
+  - id: portfolio_review
+    description: Portfolio fit and sizing review across existing holdings and candidates.
+    template: missions/portfolio-review.yaml
+    default_agents:
+      - portfolio-allocator
+      - hf-manager
+      - pro-investor
+      - cio-synthesizer
+    required_inputs:
+      - portfolio_snapshot
+    output_contract:
+      required_fields:
+        - decision_state
+        - evidence_score
+        - thesis_breakers
+      report_sections:
+        - decision_summary
+        - portfolio_fit
+  - id: quick_screen
+    description: Fast but still evidence-disciplined screen of a candidate security.
+    template: missions/quick-screen.yaml
+    default_agents:
+      - researcher-set
+      - damodaran-valuation
+      - technical-analyst
+      - cio-synthesizer
+    required_inputs:
+      - ticker
+      - market
+    output_contract:
+      required_fields:
+        - decision_state
+        - fair_value_conservative
+        - evidence_score
+      report_sections:
+        - decision_summary
+        - evidence_quality
+execution_plan:
+  research_mode: sequential
+  analysis_mode: parallel
+  synthesis_mode: single
+  document_mode: sequential
+  debate_enabled: true
+  max_debate_rounds: 3
+  evidence_request_rounds: 2
+  notes:
+    - Researcher sequential, analysts parallel, CIO sequential.
+    - Debate preserves unresolved disagreements.
+human_checkpoints:
+  after_analysis:
+    mode: disabled
+    state: HUMAN_REVIEW
+    gate_name: Gate2
+    gate_type: OPTIONAL_GATE
+    triggered_after_state: ANALYZING
+    condition: Optional individual-analysis review can be enabled per mission.
+  after_synthesis:
+    mode: always
+    state: HUMAN_REVIEW
+    gate_name: Gate3
+    gate_type: MANDATORY_GATE
+    triggered_after_state: SYNTHESIZING
+    condition: Owner must confirm or revise assumptions before DECIDED.
+  on_low_evidence:
+    mode: always
+    state: HUMAN_REVIEW
+    gate_name: Gate1
+    gate_type: CONDITIONAL_GATE
+    triggered_after_state: RESEARCHING
+    condition: Trigger before ANALYZING when evidence_score < 40.
+evidence_requirements:
+  minimum_tier_1_sources: 3
+  minimum_total_sources: 5
+  required_documents: []
+  required_documents_by_source_group:
+    thai-set:
+      - annual_report_56_1
+      - set_quarterly_filing
+      - mdna
+    us-sec-edgar:
+      - sec_10k
+      - sec_10q
+  critical_fields:
+    - normalized_earnings
+    - capex
+    - debt_structure
+    - major_shareholder
+  proceed_threshold: 70
+  human_review_threshold: 40
+  abort_recommend_threshold: 20
+context_budget_policy:
+  preferred_models:
+    research:
+      - gemini-2-flash
+      - claude-opus
+    synthesis:
+      - claude-opus
+      - claude-sonnet
+    adversarial_review:
+      - zai-default
+  warn_if_above_percent: 70
+  compress_if_above_percent: 80
+  always_preserve:
+    - facts
+    - sources
+    - key_numbers
+    - data_gaps
+  role_overrides:
+    researchers: full_evidence_pack
+    forensic_accountant: financial_statements_and_notes
+    valuation_agents: financial_plus_business_model
+    cio_synthesizer: agent_output_summaries_plus_debate_records
+output:
+  mandatory_report_sections:
+    - decision_summary
+    - evidence_quality
+    - normalized_earnings
+    - valuation
+    - downside_case
+    - decision_state
+    - price_to_watch
+    - thesis_breakers
+    - follow_up_checklist
+  mandatory_fields:
+    - decision_state
+    - normalized_earnings_base
+    - fair_value_conservative
+    - price_for_mos_30
+    - price_to_watch
+    - evidence_score
+    - thesis_breakers
+    - follow_up_events
+  forbidden_content:
+    - buy_recommendation
+    - sell_recommendation
+journal:
+  required: true
+  template: journal/investment-journal.yaml
+  schema_doc: ../../docs/JOURNAL_SCHEMA.md
+  sql_schema: ../../docs/JOURNAL_SCHEMA.sql
+  outcome_tracking: true

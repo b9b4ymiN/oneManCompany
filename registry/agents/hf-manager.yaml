@@ -1,0 +1,25 @@
+id: "hf-manager"
+name: "HF Manager"
+role: "analyst"
+persona: "HF Institutional"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "zai-default"
+context_share: "summary_plus_market_context"
+interaction_rules:
+  can_question:
+    - "researcher-set"
+    - "researcher-us"
+    - "technical-analyst"
+  must_challenge:
+    - "poor_risk_reward"
+  cannot_question:
+    - "cio-synthesizer"
+output_schema_ref: "docs/AGENT_MODEL.md#7-hf-manager"
+mandatory_fields:
+  - "catalyst_map"
+  - "risk_reward_summary"
+  - "suggested_position_size_pct"
+  - "conviction_level"

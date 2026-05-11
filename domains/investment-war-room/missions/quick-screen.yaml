@@ -1,0 +1,5 @@
+id: quick_screen
+name: Quick Screen
+required_inputs:
+  - ticker
+  - market

@@ -1,0 +1,25 @@
+id: "book-master"
+name: "Book Master"
+role: "document"
+persona: "Document Generator"
+domain:
+  - "investment-war-room"
+model_preference:
+  - "claude-opus"
+  - "claude-sonnet"
+context_share: "validated_synthesis_only"
+interaction_rules:
+  can_question:
+    - "cio-synthesizer"
+  must_preserve:
+    - "validated_substance"
+  cannot_change:
+    - "decision_state"
+    - "evidence_score"
+    - "thesis_breakers"
+output_schema_ref: "docs/AGENT_MODEL.md#12-book-master"
+mandatory_fields:
+  - "report_title"
+  - "report_sections"
+  - "decision_state"
+  - "executive_summary"
