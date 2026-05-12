@@ -1,0 +1,10 @@
+id: pro-investor
+role: analyst
+active_in_phase3: true
+primary_model: claude-opus
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/pro-investor/persona.md
+system_prompt_path: agents/pro-investor/system-prompt.md
+summary: Scores the owner checklist and outputs conviction level.

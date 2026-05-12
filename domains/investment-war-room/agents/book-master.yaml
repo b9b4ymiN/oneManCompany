@@ -1,0 +1,10 @@
+id: book-master
+role: document
+active_in_phase3: true
+primary_model: claude-opus
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/book-master/persona.md
+system_prompt_path: agents/book-master/system-prompt.md
+summary: Builds the final 12-section investment decision report.

@@ -1,0 +1,9 @@
+id: researcher-set
+role: researcher
+active_in_phase3: true
+primary_model: gemini-2-flash
+fallback_models:
+  - claude-opus
+persona_path: agents/researcher-set/persona.md
+system_prompt_path: agents/researcher-set/system-prompt.md
+summary: Thai SET/SEC regulatory expert gathering official-source evidence packs.

@@ -1,0 +1,158 @@
+{
+  "ticker": "MCS",
+  "decision_state": "CORE_CANDIDATE",
+  "fair_value_conservative": 8636293144.19,
+  "current_price": 56,
+  "price_to_watch": 44,
+  "thesis_breakers": [
+    "Demand collapse",
+    "Earnings normalization fails",
+    "Cashflow quality deteriorates",
+    "Moat weakens materially"
+  ],
+  "evidence_score": 55,
+  "mos_table": [
+    {
+      "level": "20%",
+      "value": 6909034515.35
+    },
+    {
+      "level": "30%",
+      "value": 6045405200.93
+    },
+    {
+      "level": "40%",
+      "value": 5181775886.51
+    }
+  ],
+  "valuation": {
+    "agent_id": "damodaran-valuation",
+    "mission_id": "mission_f87c12dc-2baa-4938-bb5c-131885f91940",
+    "summary": "damodaran-valuation mock summary",
+    "evidence_score": 82,
+    "evidence_used": [
+      {
+        "claim": "Revenue was 400000000",
+        "source_name": "Mock 10-K",
+        "source_tier": "tier_1",
+        "label": "FACT"
+      }
+    ],
+    "data_gaps": [],
+    "assumptions": [
+      {
+        "name": "base growth",
+        "value": 0.08,
+        "sensitivity": "margin of safety",
+        "rationale": "Mock assumption",
+        "evidence": []
+      }
+    ],
+    "open_questions": [],
+    "thesis_breakers": [
+      "Demand collapse"
+    ],
+    "fair_value_conservative": 8636293144.19,
+    "fair_value_base": 11730783805.25,
+    "fair_value_optimistic": 15914645941.58,
+    "implied_growth_at_market_price": 0.12,
+    "key_assumptions": [
+      {
+        "name": "base growth",
+        "value": 0.08,
+        "sensitivity": "margin of safety",
+        "rationale": "Mock assumption",
+        "evidence": []
+      }
+    ],
+    "what_would_change_my_mind": [
+      "Revenue stagnation"
+    ],
+    "data_gaps_found": [],
+    "reverse_dcf_summary": "Market implies durable growth",
+    "conviction_level": 7,
+    "conviction_reasoning": "DCF remains attractive",
+    "implied_growth_rate": -0.5,
+    "price_for_mos_30": 6045405200.93,
+    "mos_table": {
+      "mos_10": 7772663829.77,
+      "mos_20": 6909034515.35,
+      "mos_30": 6045405200.93,
+      "mos_40": 5181775886.51
+    },
+    "sensitivity_matrix": [
+      {
+        "wacc": 0.08,
+        "terminal_growth": 0.02,
+        "fair_value": 12600452977.87
+      },
+      {
+        "wacc": 0.08,
+        "terminal_growth": 0.03,
+        "fair_value": 14330475626.76
+      },
+      {
+        "wacc": 0.09,
+        "terminal_growth": 0.02,
+        "fair_value": 10593420870.45
+      },
+      {
+        "wacc": 0.09,
+        "terminal_growth": 0.03,
+        "fair_value": 11730783805.25
+      },
+      {
+        "wacc": 0.1,
+        "terminal_growth": 0.02,
+        "fair_value": 9100000000
+      },
+      {
+        "wacc": 0.1,
+        "terminal_growth": 0.03,
+        "fair_value": 9885714285.71
+      }
+    ]
+  },
+  "assumptions": [
+    {
+      "name": "base growth",
+      "value": 0.08,
+      "sensitivity": "margin of safety",
+      "rationale": "Mock assumption",
+      "evidence": []
+    }
+  ],
+  "evidence_summary": [
+    "MCS listing and issuer profile available on SET company profile | SET Company Profile | tier_1",
+    "MCS annual disclosure is expected in 56-1 One Report and annual report materials | 56-1 One Report | tier_1",
+    "MCS quarterly filing and MD&A should contain the most recent reported earnings bridge | SET Quarterly Filing / MD&A | tier_1",
+    "MCS management commentary and backlog discussion should be checked against Opportunity Day materials | Opportunity Day | tier_2"
+  ],
+  "analyst_views": [
+    {
+      "agent_id": "damodaran-valuation",
+      "summary": "damodaran-valuation mock summary"
+    },
+    {
+      "agent_id": "klarman-downside",
+      "summary": "klarman-downside mock summary"
+    },
+    {
+      "agent_id": "peter-lynch-story",
+      "summary": "peter-lynch-story mock summary"
+    },
+    {
+      "agent_id": "portfolio-allocator",
+      "summary": "portfolio-allocator mock summary"
+    },
+    {
+      "agent_id": "pro-investor",
+      "summary": "pro-investor mock summary"
+    }
+  ],
+  "follow_up_events": [
+    "Track next quarter filing",
+    "Review management guidance consistency"
+  ],
+  "executive_summary": "Structured final memo"
+}

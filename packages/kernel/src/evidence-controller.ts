@@ -13,16 +13,30 @@ export class EvidenceController {
     if (domain.isErr()) {
       throw domain.error;
     }
+    const normalizedItems = items.map((item) =>
+      item.claim_label === 'FACT' && (!item.source_name || !item.source_tier)
+        ? { ...item, claim_label: 'UNVERIFIED' as const }
+        : item
+    );
+    const normalizedDocuments = requiredDocumentsPresent.map((item) =>
+      String(item)
+    );
+    const normalizedDataGaps = criticalDataGaps.map((gap) => ({
+      field: String(gap.field),
+      impact: String(gap.impact),
+      severity: gap.severity,
+      suggested_action: gap.suggested_action,
+    }));
     const score = this.calculateEvidenceScore(
-      items,
-      requiredDocumentsPresent,
-      criticalDataGaps
+      normalizedItems,
+      normalizedDocuments,
+      normalizedDataGaps
     );
     return {
       mission_id: missionId,
-      items,
-      required_documents_present: requiredDocumentsPresent,
-      critical_data_gaps: criticalDataGaps,
+      items: normalizedItems,
+      required_documents_present: normalizedDocuments,
+      critical_data_gaps: normalizedDataGaps,
       score,
       thresholds: {
         proceed: domain.value.evidence_requirements.proceed_threshold,
@@ -34,6 +48,18 @@ export class EvidenceController {
   }
 
   tagClaim(label: ClaimLabel): ClaimLabel {
+    const allowed: ClaimLabel[] = [
+      'FACT',
+      'DERIVED',
+      'ASSUMPTION',
+      'ESTIMATE',
+      'UNVERIFIED',
+      'MANAGEMENT_CLAIM',
+      'MARKET_EXPECTATION',
+    ];
+    if (!allowed.includes(label)) {
+      throw new Error(`Unsupported claim label: ${label}`);
+    }
     return label;
   }
 
@@ -58,14 +84,7 @@ export class EvidenceController {
     const noGapBonus = criticalDataGaps.length === 0 ? 10 : 0;
     const gapPenalty = criticalDataGaps.length * 15;
     const tier5OnlyPenalty =
-      items.length > 0 &&
-      items.every((item) => item.source_tier === 'tier_5') &&
-      items.every(
-        (item) =>
-          item.source_tier !== 'tier_1' &&
-          item.source_tier !== 'tier_2' &&
-          item.source_tier !== 'tier_3'
-      )
+      items.length > 0 && items.every((item) => item.source_tier === 'tier_5')
         ? 20
         : 0;
     return Math.max(
@@ -97,19 +116,84 @@ export class EvidenceController {
   validateGrounding(
     output: Record<string, unknown>,
     evidencePack: EvidencePack
-  ): Result<{ valid: boolean; unsupportedNumbers: number[] }, never> {
+  ): Result<
+    {
+      valid: boolean;
+      unsupportedNumbers: number[];
+      unsupportedClaims: string[];
+    },
+    never
+  > {
     const supportedValues = new Set(
       evidencePack.items
         .map((item) => item.numeric_value)
         .filter((value): value is number => value !== undefined)
     );
     const unsupportedNumbers: number[] = [];
+    const unsupportedClaims: string[] = [];
+    const supportedPhrases = new Set(
+      evidencePack.items
+        .flatMap((item) => [item.claim_text, item.source_name ?? ''])
+        .map((item) => item.toLowerCase())
+    );
     const visit = (value: unknown, parentKey?: string): void => {
       if (typeof value === 'number') {
-        const isEstimate =
-          parentKey?.includes('assumption') || parentKey?.includes('estimate');
+        const key = parentKey?.toLowerCase() ?? '';
+        const estimateKeys = new Set([
+          'assumptions',
+          'assumption',
+          'estimate',
+          'estimates',
+          'key_assumptions',
+        ]);
+        const isEstimate = estimateKeys.has(key);
         if (!isEstimate && !supportedValues.has(value)) {
           unsupportedNumbers.push(value);
+        }
+        return;
+      }
+      if (typeof value === 'string') {
+        const key = parentKey?.toLowerCase() ?? '';
+        const claimLikeKeys = new Set([
+          'claim',
+          'summary',
+          'business_story',
+          'moat_summary',
+          'owner_fit_summary',
+          'downside_case_summary',
+          'risk_reward_summary',
+          'thesis',
+          'conclusion',
+          'recommendation',
+        ]);
+        if (claimLikeKeys.has(key)) {
+          const normalized = value.toLowerCase();
+          const groundedText = Array.from(supportedPhrases).some(
+            (phrase) => phrase && normalized === phrase
+          );
+          if (!groundedText) {
+            unsupportedClaims.push(value);
+          }
+        }
+        for (const match of value.matchAll(/-?\d+(?:\.\d+)?/g)) {
+          const parsed = Number(match[0]);
+          const key = parentKey?.toLowerCase() ?? '';
+          const estimateKeys = new Set([
+            'assumptions',
+            'assumption',
+            'estimate',
+            'estimates',
+            'key_assumptions',
+          ]);
+          const ignoredStringKeys = new Set(['id', 'section', 'source_name']);
+          const isEstimate = estimateKeys.has(key);
+          if (
+            !isEstimate &&
+            !ignoredStringKeys.has(key) &&
+            !supportedValues.has(parsed)
+          ) {
+            unsupportedNumbers.push(parsed);
+          }
         }
         return;
       }
@@ -119,12 +203,19 @@ export class EvidenceController {
       }
       if (value && typeof value === 'object') {
         for (const [key, nested] of Object.entries(value)) {
-          visit(nested, key.toLowerCase());
+          visit(
+            nested,
+            parentKey ? `${parentKey}.${key.toLowerCase()}` : key.toLowerCase()
+          );
         }
       }
     };
     visit(output);
-    return ok({ valid: unsupportedNumbers.length === 0, unsupportedNumbers });
+    return ok({
+      valid: unsupportedNumbers.length === 0 && unsupportedClaims.length === 0,
+      unsupportedNumbers,
+      unsupportedClaims,
+    });
   }
 
   recommendAction(pack: EvidencePack): 'proceed' | 'human_review' | 'abort' {

@@ -1,0 +1,9 @@
+id: researcher-us
+role: researcher
+active_in_phase3: false
+primary_model: gemini-2-flash
+fallback_models:
+  - claude-opus
+persona_path: agents/researcher-us/persona.md
+system_prompt_path: agents/researcher-us/system-prompt.md
+summary: US SEC/EDGAR evidence specialist defined for future activation.

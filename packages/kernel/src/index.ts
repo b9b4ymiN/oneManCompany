@@ -8,6 +8,7 @@ export * from './journal-schema';
 export * from './journal-writer';
 export * from './loaders';
 export * from './mission-planner';
+export * from './parallel-runner';
 export * from './state-machine';
 export * from './synthesis-engine';
 export * from './team-builder';

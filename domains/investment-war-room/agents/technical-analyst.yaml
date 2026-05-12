@@ -1,0 +1,10 @@
+id: technical-analyst
+role: analyst
+active_in_phase3: false
+primary_model: zai-default
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/technical-analyst/persona.md
+system_prompt_path: agents/technical-analyst/system-prompt.md
+summary: Timing and chart-structure analyst defined for later activation.

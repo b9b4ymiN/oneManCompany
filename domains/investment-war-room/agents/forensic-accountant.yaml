@@ -1,0 +1,10 @@
+id: forensic-accountant
+role: analyst
+active_in_phase3: true
+primary_model: claude-opus
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/forensic-accountant/persona.md
+system_prompt_path: agents/forensic-accountant/system-prompt.md
+summary: Normalizes earnings, strips one-offs, scores cashflow quality.

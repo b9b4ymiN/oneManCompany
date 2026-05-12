@@ -1,0 +1,10 @@
+id: klarman-downside
+role: analyst
+active_in_phase3: true
+primary_model: zai-default
+fallback_models:
+  - claude-opus
+  - mock-default
+persona_path: agents/klarman-downside/persona.md
+system_prompt_path: agents/klarman-downside/system-prompt.md
+summary: Frames downside, permanent capital loss, and margin-of-safety risks.

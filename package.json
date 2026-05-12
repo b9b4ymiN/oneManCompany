@@ -9,7 +9,8 @@
     "lint": "eslint packages vitest.config.ts --ext .ts --ignore-pattern '**/dist/**'",
     "format": "prettier --write \"packages/**/*.{ts,md}\" package.json eslint.config.mjs prettier.config.mjs tsconfig.base.json tsconfig.json vitest.config.ts pnpm-workspace.yaml",
     "format:check": "prettier --check \"packages/**/*.{ts,md}\" package.json eslint.config.mjs prettier.config.mjs tsconfig.base.json tsconfig.json vitest.config.ts pnpm-workspace.yaml",
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "test:grounding": "vitest run packages/cli/tests/grounding.test.ts"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",

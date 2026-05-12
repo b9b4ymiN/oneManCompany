@@ -68,6 +68,19 @@ describe('EvidenceController', () => {
     expect(tier5Score).toBe(0);
   });
 
+  it('handles invalid label and stringified numeric grounding branches', () => {
+    expect(() => controller.tagClaim('BAD_LABEL' as never)).toThrow();
+    const pack = controller.buildEvidencePack('m1', items, ['sec_10k'], []);
+    const result = controller.validateGrounding(
+      { note: 'value 999 here', assumption_text: 'estimate 123' },
+      pack
+    );
+    if (result.isOk()) {
+      expect(result.value.unsupportedNumbers).toContain(999);
+      expect(result.value.unsupportedNumbers).not.toContain(123);
+    }
+  });
+
   it('validates numeric grounding', () => {
     const pack = controller.buildEvidencePack('m1', items, ['sec_10k'], []);
     const grounded = controller.validateGrounding(

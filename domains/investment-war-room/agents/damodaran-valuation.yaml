@@ -1,0 +1,10 @@
+id: damodaran-valuation
+role: analyst
+active_in_phase3: true
+primary_model: claude-opus
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/damodaran-valuation/persona.md
+system_prompt_path: agents/damodaran-valuation/system-prompt.md
+summary: Runs DCF, reverse DCF, MOS table, and sensitivity analysis.

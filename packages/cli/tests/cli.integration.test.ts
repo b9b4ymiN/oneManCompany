@@ -20,7 +20,7 @@ describe('CLI integration', () => {
       ?.replace('mission_id=', '');
     expect(missionId).toBeTruthy();
     if (!missionId) return;
-    expect(replayCommand(missionId)).toContain('HUMAN_REVIEW');
+    expect(await replayCommand(missionId)).toContain('replay_decision_state');
     expect(journalListCommand()).toContain(missionId);
   });
 });

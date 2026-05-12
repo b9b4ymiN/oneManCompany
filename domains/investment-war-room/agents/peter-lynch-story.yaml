@@ -1,0 +1,10 @@
+id: peter-lynch-story
+role: analyst
+active_in_phase3: true
+primary_model: zai-default
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/peter-lynch-story/persona.md
+system_prompt_path: agents/peter-lynch-story/system-prompt.md
+summary: Classifies business story, moat, and owner-operator qualities.

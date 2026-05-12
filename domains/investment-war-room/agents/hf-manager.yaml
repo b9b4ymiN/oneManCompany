@@ -1,0 +1,10 @@
+id: hf-manager
+role: analyst
+active_in_phase3: false
+primary_model: zai-default
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/hf-manager/persona.md
+system_prompt_path: agents/hf-manager/system-prompt.md
+summary: Institutional catalyst/risk-reward lens defined for later activation.

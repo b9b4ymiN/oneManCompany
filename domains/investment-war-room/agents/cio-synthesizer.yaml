@@ -1,0 +1,10 @@
+id: cio-synthesizer
+role: synthesizer
+active_in_phase3: true
+primary_model: claude-opus
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/cio-synthesizer/persona.md
+system_prompt_path: agents/cio-synthesizer/system-prompt.md
+summary: Maps agreement, preserves disagreement, and chooses decision state.

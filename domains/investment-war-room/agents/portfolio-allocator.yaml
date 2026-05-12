@@ -1,0 +1,10 @@
+id: portfolio-allocator
+role: analyst
+active_in_phase3: true
+primary_model: claude-opus
+fallback_models:
+  - claude-sonnet
+  - mock-default
+persona_path: agents/portfolio-allocator/persona.md
+system_prompt_path: agents/portfolio-allocator/system-prompt.md
+summary: Determines sizing, concentration fit, and entry approach.

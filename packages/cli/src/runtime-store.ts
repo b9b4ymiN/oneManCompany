@@ -5,6 +5,7 @@ import Database from 'better-sqlite3';
 const runtimeDir = path.resolve(process.cwd(), '.omc/runtime');
 const dbPath = path.join(runtimeDir, 'onemancompany.db');
 const traceDir = path.join(runtimeDir, 'missions');
+const reportDir = path.resolve(process.cwd(), 'missions');
 
 export interface MissionTraceRecord {
   mission_id: string;
@@ -13,11 +14,15 @@ export interface MissionTraceRecord {
   transitions: Array<{ from: string; to: string; at: string }>;
   adapter_trace: string[];
   evidence_score?: number;
+  decision_state?: string;
+  report_path?: string;
+  report_metadata_path?: string;
 }
 
 export function ensureRuntime(): Database.Database {
   fs.mkdirSync(runtimeDir, { recursive: true });
   fs.mkdirSync(traceDir, { recursive: true });
+  fs.mkdirSync(reportDir, { recursive: true });
   const db = new Database(dbPath);
   const schemaPath = path.resolve(process.cwd(), 'docs/JOURNAL_SCHEMA.sql');
   try {
@@ -39,6 +44,10 @@ export function missionDbPath(): string {
 
 export function missionTracePath(missionId: string): string {
   return path.join(traceDir, `${missionId}.json`);
+}
+
+export function reportFolderPath(symbol: string, stamp: string): string {
+  return path.join(reportDir, `${symbol}-${stamp}`);
 }
 
 export function writeTrace(record: MissionTraceRecord): void {
