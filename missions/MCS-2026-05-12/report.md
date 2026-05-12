@@ -1,6 +1,6 @@
 # Investment Decision Report — MCS
 
-Generated at: 2026-05-12T05:15:37.450Z
+Generated at: 2026-05-12T09:47:14.138Z
 
 ## 1. Subject Summary
 
@@ -28,15 +28,15 @@ The forensic lane estimated normalized earnings at 400,000,000 on the runtime sc
 
 ## 5. Valuation Summary
 
-The valuation lane estimated a conservative fair value near 8,636,293,144.19, with base and optimistic cases of 11,730,783,805.25 and 15,914,645,941.58 respectively. The reverse DCF summary indicated Market implies durable growth. The implied growth at market price was 0.12. The crucial interpretation is not the single-point number but the relationship between current expectations, conservative value, and the owner’s required margin of safety. This report therefore focuses on whether the current setup already discounts a demanding future or still leaves room for asymmetric upside after accounting for business quality and downside risk.
+The valuation lane estimated a conservative fair value near 27.38, with base and optimistic cases of 37.06 and 50.13 respectively. The reverse DCF summary indicated Market implies durable growth. The implied growth at market price was 0.12. The crucial interpretation is not the single-point number but the relationship between current expectations, conservative value, and the owner’s required margin of safety. This report therefore focuses on whether the current setup already discounts a demanding future or still leaves room for asymmetric upside after accounting for business quality and downside risk.
 
-The valuation lane estimated a conservative fair value near 8,636,293,144.19, with base and optimistic cases of 11,730,783,805.25 and 15,914,645,941.58 respectively. The reverse DCF summary indicated Market implies durable growth. The implied growth at market price was 0.12. The crucial interpretation is not the single-point number but the relationship between current expectations, conservative value, and the owner’s required margin of safety. This report therefore focuses on whether the current setup already discounts a demanding future or still leaves room for asymmetric upside after accounting for business quality and downside risk.
+The valuation lane estimated a conservative fair value near 27.38, with base and optimistic cases of 37.06 and 50.13 respectively. The reverse DCF summary indicated Market implies durable growth. The implied growth at market price was 0.12. The crucial interpretation is not the single-point number but the relationship between current expectations, conservative value, and the owner’s required margin of safety. This report therefore focuses on whether the current setup already discounts a demanding future or still leaves room for asymmetric upside after accounting for business quality and downside risk.
 
 ## 6. MOS Table
 
-The margin-of-safety table anchors the watch-price framework. At a 20 percent MOS, the target value is 6,909,034,515.35. At a 30 percent MOS, the target value is 6,045,405,200.93. At a 40 percent MOS, the target value is 5,181,775,886.51. These levels matter because the system is designed to convert analysis into a practical decision protocol, not just an abstract valuation opinion. Even if the business is attractive, the owner may still choose a WAIT_FOR_PRICE style posture if the current market price does not provide the required buffer against model error, cyclicality, or accounting uncertainty.
+The margin-of-safety table anchors the watch-price framework. At a 20 percent MOS, the target value is 21.9. At a 30 percent MOS, the target value is 19.17. At a 40 percent MOS, the target value is 16.43. These levels matter because the system is designed to convert analysis into a practical decision protocol, not just an abstract valuation opinion. Even if the business is attractive, the owner may still choose a WAIT_FOR_PRICE style posture if the current market price does not provide the required buffer against model error, cyclicality, or accounting uncertainty.
 
-The margin-of-safety table anchors the watch-price framework. At a 20 percent MOS, the target value is 6,909,034,515.35. At a 30 percent MOS, the target value is 6,045,405,200.93. At a 40 percent MOS, the target value is 5,181,775,886.51. These levels matter because the system is designed to convert analysis into a practical decision protocol, not just an abstract valuation opinion. Even if the business is attractive, the owner may still choose a WAIT_FOR_PRICE style posture if the current market price does not provide the required buffer against model error, cyclicality, or accounting uncertainty.
+The margin-of-safety table anchors the watch-price framework. At a 20 percent MOS, the target value is 21.9. At a 30 percent MOS, the target value is 19.17. At a 40 percent MOS, the target value is 16.43. These levels matter because the system is designed to convert analysis into a practical decision protocol, not just an abstract valuation opinion. Even if the business is attractive, the owner may still choose a WAIT_FOR_PRICE style posture if the current market price does not provide the required buffer against model error, cyclicality, or accounting uncertainty.
 
 ## 7. Downside Case
 

@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"git diff audit/repair --stat 2>/dev/null || git diff main..audit/repair --stat 2>/dev/null || git log audit/repair --oneline -10 2>/dev/null\",\"description\":\"Check audit/repair branch chang...",
+  "error": "Exit code 128",
+  "timestamp": "2026-05-12T09:29:16.853Z",
+  "retry_count": 1
+}

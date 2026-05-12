@@ -1,7 +1,7 @@
 {
   "ticker": "MCS",
   "decision_state": "CORE_CANDIDATE",
-  "fair_value_conservative": 8636293144.19,
+  "fair_value_conservative": 27.38,
   "current_price": 56,
   "price_to_watch": 44,
   "thesis_breakers": [
@@ -14,21 +14,21 @@
   "mos_table": [
     {
       "level": "20%",
-      "value": 6909034515.35
+      "value": 21.9
     },
     {
       "level": "30%",
-      "value": 6045405200.93
+      "value": 19.17
     },
     {
       "level": "40%",
-      "value": 5181775886.51
+      "value": 16.43
     }
   ],
   "valuation": {
     "agent_id": "damodaran-valuation",
-    "mission_id": "mission_f87c12dc-2baa-4938-bb5c-131885f91940",
-    "summary": "damodaran-valuation mock summary",
+    "mission_id": "mission_740d7fe3-7f49-47e9-b643-8bf7c50fde6d",
+    "summary": "damodaran-valuation analysis summary",
     "evidence_score": 82,
     "evidence_used": [
       {
@@ -44,7 +44,7 @@
         "name": "base growth",
         "value": 0.08,
         "sensitivity": "margin of safety",
-        "rationale": "Mock assumption",
+        "rationale": "Scenario assumption",
         "evidence": []
       }
     ],
@@ -52,16 +52,16 @@
     "thesis_breakers": [
       "Demand collapse"
     ],
-    "fair_value_conservative": 8636293144.19,
-    "fair_value_base": 11730783805.25,
-    "fair_value_optimistic": 15914645941.58,
+    "fair_value_conservative": 27.38,
+    "fair_value_base": 37.06,
+    "fair_value_optimistic": 50.13,
     "implied_growth_at_market_price": 0.12,
     "key_assumptions": [
       {
         "name": "base growth",
         "value": 0.08,
         "sensitivity": "margin of safety",
-        "rationale": "Mock assumption",
+        "rationale": "Scenario assumption",
         "evidence": []
       }
     ],
@@ -72,53 +72,15 @@
     "reverse_dcf_summary": "Market implies durable growth",
     "conviction_level": 7,
     "conviction_reasoning": "DCF remains attractive",
-    "implied_growth_rate": -0.5,
-    "price_for_mos_30": 6045405200.93,
-    "mos_table": {
-      "mos_10": 7772663829.77,
-      "mos_20": 6909034515.35,
-      "mos_30": 6045405200.93,
-      "mos_40": 5181775886.51
-    },
-    "sensitivity_matrix": [
-      {
-        "wacc": 0.08,
-        "terminal_growth": 0.02,
-        "fair_value": 12600452977.87
-      },
-      {
-        "wacc": 0.08,
-        "terminal_growth": 0.03,
-        "fair_value": 14330475626.76
-      },
-      {
-        "wacc": 0.09,
-        "terminal_growth": 0.02,
-        "fair_value": 10593420870.45
-      },
-      {
-        "wacc": 0.09,
-        "terminal_growth": 0.03,
-        "fair_value": 11730783805.25
-      },
-      {
-        "wacc": 0.1,
-        "terminal_growth": 0.02,
-        "fair_value": 9100000000
-      },
-      {
-        "wacc": 0.1,
-        "terminal_growth": 0.03,
-        "fair_value": 9885714285.71
-      }
-    ]
+    "implied_growth_rate": 0.154741,
+    "price_for_mos_30": 19.17
   },
   "assumptions": [
     {
       "name": "base growth",
       "value": 0.08,
       "sensitivity": "margin of safety",
-      "rationale": "Mock assumption",
+      "rationale": "Scenario assumption",
       "evidence": []
     }
   ],
@@ -131,23 +93,23 @@
   "analyst_views": [
     {
       "agent_id": "damodaran-valuation",
-      "summary": "damodaran-valuation mock summary"
+      "summary": "damodaran-valuation analysis summary"
     },
     {
       "agent_id": "klarman-downside",
-      "summary": "klarman-downside mock summary"
+      "summary": "klarman-downside analysis summary"
     },
     {
       "agent_id": "peter-lynch-story",
-      "summary": "peter-lynch-story mock summary"
+      "summary": "peter-lynch-story analysis summary"
     },
     {
       "agent_id": "portfolio-allocator",
-      "summary": "portfolio-allocator mock summary"
+      "summary": "portfolio-allocator analysis summary"
     },
     {
       "agent_id": "pro-investor",
-      "summary": "pro-investor mock summary"
+      "summary": "pro-investor analysis summary"
     }
   ],
   "follow_up_events": [

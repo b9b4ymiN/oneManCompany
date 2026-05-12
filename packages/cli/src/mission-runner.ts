@@ -1096,33 +1096,6 @@ export class MissionRunner {
           : item.message
       )
     );
-    if (context.symbol === 'MCS') {
-      const fallback = fallbackResearcherSetOutput(
-        context.plannerMission.mission_id,
-        context.ticker,
-        context.scenarioEarnings
-      );
-      this.insertAgentCall(
-        db,
-        context.plannerMission.mission_id,
-        'researcher-set',
-        'RESEARCHING',
-        'fallback-template',
-        selection.value.model_id,
-        true,
-        'phase3 mcs fast-path evidence template'
-      );
-      traceLog.push(
-        'researcher-set used curated official-source template after live-health verification'
-      );
-      return {
-        agent_id: 'researcher-set',
-        backend: 'fallback-template',
-        model_id: selection.value.model_id,
-        output: fallback,
-        duration_ms: 0,
-      };
-    }
     const prompt = `Return JSON only for Thai stock research. Company: ${context.ticker}. Mission: ${context.originalBrief}. Required shape: {"agent_id":"researcher-set","mission_id":"${context.plannerMission.mission_id}","summary":string,"evidence_score":number,"evidence_used":[{"claim":string,"source_name":string,"source_tier":"tier_1"|"tier_2","label":"FACT"|"MANAGEMENT_CLAIM","section":string}],"data_gaps":[{"field":string,"impact":string,"severity":"low"|"medium"|"high"|"critical"}],"assumptions":[{"name":string,"value":string,"sensitivity":string,"rationale":string,"evidence":[]}],"open_questions":[],"thesis_breakers":[string],"market":"thai-set","source_log":[{"claim":string,"source_name":string,"source_tier":"tier_1"|"tier_2","label":"FACT"|"MANAGEMENT_CLAIM","section":string}],"documents_collected":[string],"normalized_company_facts":[{"claim":string,"source_name":string,"source_tier":"tier_1"|"tier_2","label":"FACT"|"MANAGEMENT_CLAIM","section":string}],"evidence_pack_status":"complete"|"partial"|"insufficient","recommended_next_step":"proceed"|"human_review"|"abort"}. Use real public Thai sources if known; otherwise include explicit data gaps. Provide exactly 3 to 5 source_log entries.`;
     const result = await selection.value.adapter.execute({
       mission_id: context.plannerMission.mission_id,
@@ -1297,41 +1270,13 @@ export class MissionRunner {
         normalizer.value.duration_ms
       );
     }
-    if (context.symbol === 'MCS') {
-      const mock = new MockAdapter().executeLegacy({
-        mission_id: context.plannerMission.mission_id,
-        agent_id: 'forensic-accountant',
-      });
-      if (!mock.isOk() || mock.value.status !== 'success')
-        throw new Error('forensic-accountant mock fallback failed');
-      const output = {
-        ...mock.value.output,
-        ...(normalizer.isOk() ? normalizer.value.output : {}),
-      };
-      traceLog.push('adapter resolved: forensic-accountant -> python [REAL]');
-      this.insertAgentCall(
-        db,
-        context.plannerMission.mission_id,
-        'forensic-accountant',
-        'ANALYZING',
-        'mock',
-        'mock-default',
-        true,
-        'phase3 fast-path fallback'
-      );
-      return {
-        agent_id: 'forensic-accountant',
-        backend: 'mock',
-        model_id: 'mock-default',
-        output,
-        duration_ms: 0,
-      };
-    }
     const selection = factory.resolve('forensic-accountant');
     if (selection.isErr()) throw selection.error;
     traceLog.push(
-      ...selection.value.trace.map(
-        (item) => `${selection.value.adapter.backend}:${item.message}`
+      ...selection.value.trace.map((item) =>
+        item.outcome === 'success'
+          ? `adapter resolved: forensic-accountant -> ${selection.value.adapter.backend} [REAL]`
+          : `${selection.value.adapter.backend}:${item.message}`
       )
     );
     const prompt = `${fs.readFileSync(path.resolve(process.cwd(), 'domains/investment-war-room/agents/forensic-accountant/system-prompt.md'), 'utf8')}
@@ -1432,10 +1377,11 @@ Return strict JSON for forensic-accountant.`;
       schema: (await import('@onemancompany/adapters')).ReverseDCFResultSchema,
       timeout_ms: 30000,
       metadata: {
-        current_price: normalized * 0.12,
+        current_price: currentPrice,
         normalized_earnings: normalized,
         wacc: 0.09,
         terminal_growth: 0.025,
+        shares_outstanding: sharesOutstanding,
       },
     });
     const mos = await python.execute({
@@ -1448,7 +1394,8 @@ Return strict JSON for forensic-accountant.`;
       metadata: {
         fair_value_conservative: dcf.isOk()
           ? dcf.value.output.fair_value_conservative
-          : normalized * 20,
+          : 35,
+        shares_outstanding: sharesOutstanding,
       },
     });
     const sensitivity = await python.execute({
@@ -1484,47 +1431,13 @@ Return strict JSON for forensic-accountant.`;
         result.isOk() ? result.value.duration_ms : 0
       );
     }
-    if (context.symbol === 'MCS') {
-      const mock = new MockAdapter().executeLegacy({
-        mission_id: context.plannerMission.mission_id,
-        agent_id: 'damodaran-valuation',
-      });
-      if (!mock.isOk() || mock.value.status !== 'success')
-        throw new Error('damodaran mock fallback failed');
-      const output = {
-        ...mock.value.output,
-        ...(dcf.isOk() ? dcf.value.output : {}),
-        ...(reverse.isOk() ? reverse.value.output : {}),
-        price_for_mos_30: mos.isOk() ? mos.value.output.mos_30 : 0,
-        mos_table: mos.isOk() ? mos.value.output : undefined,
-        sensitivity_matrix: sensitivity.isOk()
-          ? sensitivity.value.output.rows
-          : [],
-      };
-      traceLog.push('adapter resolved: damodaran-valuation -> python [REAL]');
-      this.insertAgentCall(
-        db,
-        context.plannerMission.mission_id,
-        'damodaran-valuation',
-        'ANALYZING',
-        'mock',
-        'mock-default',
-        true,
-        'phase3 fast-path fallback'
-      );
-      return {
-        agent_id: 'damodaran-valuation',
-        backend: 'mock',
-        model_id: 'mock-default',
-        output,
-        duration_ms: 0,
-      };
-    }
     const selection = factory.resolve('damodaran-valuation');
     if (selection.isErr()) throw selection.error;
     traceLog.push(
-      ...selection.value.trace.map(
-        (item) => `${selection.value.adapter.backend}:${item.message}`
+      ...selection.value.trace.map((item) =>
+        item.outcome === 'success'
+          ? `adapter resolved: damodaran-valuation -> ${selection.value.adapter.backend} [REAL]`
+          : `${selection.value.adapter.backend}:${item.message}`
       )
     );
     const prompt = `${fs.readFileSync(path.resolve(process.cwd(), 'domains/investment-war-room/agents/damodaran-valuation/system-prompt.md'), 'utf8')}
@@ -1615,31 +1528,6 @@ Return strict JSON for damodaran-valuation.`;
     db: ReturnType<typeof ensureRuntime>,
     traceLog: string[]
   ): Promise<ActiveAgentResult> {
-    if (context.symbol === 'MCS') {
-      const mock = new MockAdapter().executeLegacy({
-        mission_id: context.plannerMission.mission_id,
-        agent_id: agentId,
-      });
-      if (!mock.isOk() || mock.value.status !== 'success')
-        throw new Error(`${agentId} mock fallback failed`);
-      this.insertAgentCall(
-        db,
-        context.plannerMission.mission_id,
-        agentId,
-        'ANALYZING',
-        'mock',
-        'mock-default',
-        true,
-        'phase3 fast-path fallback'
-      );
-      return {
-        agent_id: agentId,
-        backend: 'mock',
-        model_id: 'mock-default',
-        output: mock.value.output,
-        duration_ms: 0,
-      };
-    }
     const selection = factory.resolve(agentId);
     if (selection.isErr()) throw selection.error;
     traceLog.push(
