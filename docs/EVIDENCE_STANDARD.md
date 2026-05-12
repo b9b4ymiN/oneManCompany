@@ -116,6 +116,7 @@ A compliant evidence pack should include:
 - management communication
 - market context
 - data gaps
+- share count / shares_outstanding when per-share valuation is required
 
 The pack should also make it possible to trace any final claim back to source names, tiers, and sections.
 

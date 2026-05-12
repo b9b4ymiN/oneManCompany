@@ -21,3 +21,5 @@ mandatory_fields:
   - "normalized_earnings_base"
   - "cashflow_quality"
   - "conviction_level"
+  - "one_off_items"
+  - "thesis_breakers"

@@ -8,7 +8,7 @@ describe('CLI integration', () => {
   it('prints health report', async () => {
     const output = await healthCommand();
     expect(output).toContain('gemini-cli');
-    expect(/healthy|unhealthy/.test(output)).toBe(true);
+    expect(/\[HEALTHY\]|\[UNHEALTHY\]/.test(output)).toBe(true);
   });
 
   it('runs a mission to HUMAN_REVIEW and exposes journal/replay output', async () => {

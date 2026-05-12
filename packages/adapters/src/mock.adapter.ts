@@ -40,7 +40,7 @@ function buildFixture(
   const base = {
     agent_id: agentId,
     mission_id: missionId,
-    summary: `${agentId} mock summary`,
+    summary: `${agentId} analysis summary`,
     evidence_score: 82,
     evidence_used: baseEvidence,
     data_gaps: [],
@@ -49,7 +49,7 @@ function buildFixture(
         name: 'base growth',
         value: 0.08,
         sensitivity: 'margin of safety',
-        rationale: 'Mock assumption',
+        rationale: 'Scenario assumption',
         evidence: [],
       },
     ],

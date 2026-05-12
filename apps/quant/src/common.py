@@ -4,9 +4,13 @@ import json
 import sys
 from typing import Any, cast
 
+MAX_PAYLOAD_BYTES = 100_000
+
 
 def read_payload() -> dict[str, Any]:
-    raw = sys.stdin.read().strip()
+    raw = sys.stdin.read(MAX_PAYLOAD_BYTES + 1).strip()
+    if len(raw) > MAX_PAYLOAD_BYTES:
+        raise ValueError("CALCULATION_ERROR")
     if not raw:
         return {}
     return cast(dict[str, Any], json.loads(raw))

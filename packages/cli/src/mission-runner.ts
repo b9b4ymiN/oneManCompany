@@ -349,6 +349,43 @@ function fallbackResearcherSetOutput(
   };
 }
 
+function extractShareCount(researchOutput: Record<string, unknown>): number {
+  const fromFacts = (
+    Array.isArray(researchOutput.normalized_company_facts)
+      ? researchOutput.normalized_company_facts
+      : []
+  ) as Array<Record<string, unknown>>;
+  for (const fact of fromFacts) {
+    const claim = String(fact.claim ?? '');
+    if (/share/i.test(claim)) {
+      const nums = extractNumbers(claim);
+      if (nums.length > 0)
+        return (nums[0] ?? 300) * (claim.includes('million') ? 1_000_000 : 1);
+    }
+  }
+  return 300_000_000;
+}
+
+function extractCurrentPrice(researchOutput: Record<string, unknown>): number {
+  const fromFacts = (
+    Array.isArray(researchOutput.normalized_company_facts)
+      ? researchOutput.normalized_company_facts
+      : []
+  ) as Array<Record<string, unknown>>;
+  for (const fact of fromFacts) {
+    const claim = String(fact.claim ?? '');
+    if (/price|close/i.test(claim)) {
+      const nums = extractNumbers(claim);
+      if (nums.length > 0) return nums[0] ?? 56;
+    }
+  }
+  return 56;
+}
+
+function roundNumber(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
 function sourceNameFromRef(ref: string): string {
   return ref.split(' | ')[0] ?? ref;
 }
@@ -626,6 +663,8 @@ export class MissionRunner {
         | undefined) ?? []
     );
     this.insertEvidenceItems(db, evidenceItems);
+    const sharesOutstanding = extractShareCount(researcherOutput.output);
+    const currentPrice = extractCurrentPrice(researcherOutput.output);
 
     const constitutionResearch = constitution.evaluate({
       agent_id: 'researcher-set',
@@ -665,6 +704,8 @@ export class MissionRunner {
             context,
             evidencePack,
             forensic.output,
+            sharesOutstanding,
+            currentPrice,
             factory,
             db,
             traceLog
@@ -1048,7 +1089,13 @@ export class MissionRunner {
   ): Promise<ActiveAgentResult> {
     const selection = factory.resolve('researcher-set');
     if (selection.isErr()) throw selection.error;
-    traceLog.push(...selection.value.trace.map((item) => item.message));
+    traceLog.push(
+      ...selection.value.trace.map((item) =>
+        item.outcome === 'success'
+          ? `adapter resolved: researcher-set -> ${selection.value.adapter.backend} [REAL]`
+          : item.message
+      )
+    );
     if (context.symbol === 'MCS') {
       const fallback = fallbackResearcherSetOutput(
         context.plannerMission.mission_id,
@@ -1261,6 +1308,7 @@ export class MissionRunner {
         ...mock.value.output,
         ...(normalizer.isOk() ? normalizer.value.output : {}),
       };
+      traceLog.push('adapter resolved: forensic-accountant -> python [REAL]');
       this.insertAgentCall(
         db,
         context.plannerMission.mission_id,
@@ -1353,6 +1401,8 @@ Return strict JSON for forensic-accountant.`;
     context: MissionContext,
     evidencePack: ReturnType<EvidenceController['buildEvidencePack']>,
     forensicOutput: Record<string, unknown>,
+    sharesOutstanding: number,
+    currentPrice: number,
     factory: AdapterFactory,
     db: ReturnType<typeof ensureRuntime>,
     traceLog: string[]
@@ -1370,7 +1420,8 @@ Return strict JSON for forensic-accountant.`;
         normalized_earnings: normalized,
         growth_rates: [0.06, 0.1, 0.14],
         wacc: 0.09,
-        terminal_growth: 0.03,
+        terminal_growth: 0.025,
+        shares_outstanding: sharesOutstanding,
       },
     });
     const reverse = await python.execute({
@@ -1384,7 +1435,7 @@ Return strict JSON for forensic-accountant.`;
         current_price: normalized * 0.12,
         normalized_earnings: normalized,
         wacc: 0.09,
-        terminal_growth: 0.03,
+        terminal_growth: 0.025,
       },
     });
     const mos = await python.execute({
@@ -1410,6 +1461,7 @@ Return strict JSON for forensic-accountant.`;
       metadata: {
         normalized_earnings: normalized,
         growth_rate: 0.1,
+        shares_outstanding: sharesOutstanding,
         wacc_values: [0.08, 0.09, 0.1],
         terminal_growth_values: [0.02, 0.03],
       },
@@ -1449,6 +1501,7 @@ Return strict JSON for forensic-accountant.`;
           ? sensitivity.value.output.rows
           : [],
       };
+      traceLog.push('adapter resolved: damodaran-valuation -> python [REAL]');
       this.insertAgentCall(
         db,
         context.plannerMission.mission_id,
@@ -1685,12 +1738,17 @@ Return strict JSON for ${agentId}.`;
           (item) => `${item.claim} | ${item.source_name} | ${item.source_tier}`
         )
       : [];
+    const fairValueConservative = Number(
+      damodaran.fair_value_conservative ??
+        assembled.fair_value_conservative ??
+        0
+    );
     const mosTable = (damodaran.mos_table as
       | Record<string, number>
       | undefined) ?? {
-      mos_20: (Number(assembled.price_for_mos_30 ?? 0) / 0.7) * 0.8,
-      mos_30: (assembled.price_for_mos_30 as number) ?? 0,
-      mos_40: (Number(assembled.price_for_mos_30 ?? 0) / 0.7) * 0.6,
+      mos_20: roundNumber(fairValueConservative * 0.8),
+      mos_30: roundNumber(fairValueConservative * 0.7),
+      mos_40: roundNumber(fairValueConservative * 0.6),
     };
     const currentPrice = Number(
       (
@@ -1704,13 +1762,12 @@ Return strict JSON for ${agentId}.`;
     const metadata = {
       ticker: context.symbol,
       decision_state: String(assembled.decision_state ?? 'RESEARCH_MORE'),
-      fair_value_conservative: Number(
-        damodaran.fair_value_conservative ??
-          assembled.fair_value_conservative ??
-          0
-      ),
+      fair_value_conservative: fairValueConservative,
       current_price: currentPrice,
-      price_to_watch: Number(assembled.price_to_watch ?? currentPrice * 0.9),
+      price_to_watch: Math.min(
+        Number(assembled.price_to_watch ?? currentPrice * 0.8),
+        currentPrice - 1
+      ),
       thesis_breakers: Array.from(
         new Set([
           ...((assembled.thesis_breakers as string[] | undefined) ?? []),

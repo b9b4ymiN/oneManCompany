@@ -8,6 +8,7 @@ def main() -> None:
     payload = read_payload()
     normalized_earnings = float(payload["normalized_earnings"])
     growth_rate = float(payload["growth_rate"])
+    shares_outstanding = float(payload["shares_outstanding"])
     wacc_values = [float(value) for value in payload["wacc_values"]]
     terminal_growth_values = [
         float(value) for value in payload["terminal_growth_values"]
@@ -20,7 +21,11 @@ def main() -> None:
                     "wacc": wacc,
                     "terminal_growth": terminal_growth,
                     "fair_value": compute_dcf_value(
-                        normalized_earnings, growth_rate, wacc, terminal_growth
+                        normalized_earnings,
+                        growth_rate,
+                        wacc,
+                        terminal_growth,
+                        shares_outstanding,
                     ),
                 }
             )

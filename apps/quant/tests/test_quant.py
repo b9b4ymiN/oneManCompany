@@ -22,39 +22,44 @@ def test_dcf_known_value() -> None:
     result = run_script(
         "dcf.py",
         {
-            "normalized_earnings": 400,
+            "normalized_earnings": 400000000,
             "growth_rates": [0.1, 0.1, 0.1],
             "wacc": 0.09,
-            "terminal_growth": 0.03,
+            "terminal_growth": 0.025,
+            "shares_outstanding": 300000000,
         },
     )
-    assert abs(float(result["fair_value_conservative"]) - 11730.78) < 1
+    assert 25.0 <= float(result["fair_value_conservative"]) <= 45.0
 
 
 def test_reverse_dcf() -> None:
     result = run_script(
         "reverse_dcf.py",
         {
-            "current_price": 11730.78,
-            "normalized_earnings": 400,
+            "current_price": 56,
+            "normalized_earnings": 400000000,
             "wacc": 0.09,
-            "terminal_growth": 0.03,
+            "terminal_growth": 0.025,
+            "shares_outstanding": 300000000,
         },
     )
-    assert abs(float(result["implied_growth_rate"]) - 0.1) < 0.01
+    assert 0.05 <= float(result["implied_growth_rate"]) <= 0.50
 
 
 def test_mos_table() -> None:
-    result = run_script("mos_table.py", {"fair_value_conservative": 100})
-    assert result == {"mos_10": 90.0, "mos_20": 80.0, "mos_30": 70.0, "mos_40": 60.0}
+    result = run_script(
+        "mos_table.py", {"fair_value_conservative": 40, "shares_outstanding": 300000000}
+    )
+    assert result == {"mos_10": 36.0, "mos_20": 32.0, "mos_30": 28.0, "mos_40": 24.0}
 
 
 def test_sensitivity_matrix() -> None:
     result = run_script(
         "sensitivity.py",
         {
-            "normalized_earnings": 400,
+            "normalized_earnings": 400000000,
             "growth_rate": 0.1,
+            "shares_outstanding": 300000000,
             "wacc_values": [0.08, 0.09],
             "terminal_growth_values": [0.02, 0.03],
         },

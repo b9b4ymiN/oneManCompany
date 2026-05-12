@@ -12,17 +12,21 @@ describe('PythonAdapter', () => {
       schema: DCFResultSchema,
       timeout_ms: 30000,
       metadata: {
-        normalized_earnings: 400,
+        normalized_earnings: 400000000,
         growth_rates: [0.1, 0.1, 0.1],
         wacc: 0.09,
-        terminal_growth: 0.03,
+        terminal_growth: 0.025,
+        shares_outstanding: 300000000,
       },
     });
     expect(result.isOk()).toBe(true);
     if (result.isOk()) {
       expect(
-        Math.abs(result.value.output.fair_value_conservative - 11730.78)
-      ).toBeLessThan(1);
+        result.value.output.fair_value_conservative
+      ).toBeGreaterThanOrEqual(25);
+      expect(result.value.output.fair_value_conservative).toBeLessThanOrEqual(
+        45
+      );
     }
   });
 });

@@ -69,10 +69,11 @@ export class PythonAdapter implements RuntimeAdapter {
   async healthCheck(): Promise<BackendHealthStatus> {
     const scriptPath = path.join(this.appRoot, 'dcf.py');
     const payload = JSON.stringify({
-      normalized_earnings: 400,
+      normalized_earnings: 400000000,
       growth_rates: [0.1, 0.1, 0.1],
       wacc: 0.09,
-      terminal_growth: 0.03,
+      terminal_growth: 0.025,
+      shares_outstanding: 300000000,
     });
     const result = await runProcess('python3', [scriptPath], payload, 30_000);
     return {

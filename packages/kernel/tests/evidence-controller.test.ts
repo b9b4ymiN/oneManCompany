@@ -81,6 +81,38 @@ describe('EvidenceController', () => {
     }
   });
 
+  it('downgrades sourceless FACT items and flags unsupported claim text', () => {
+    const pack = controller.buildEvidencePack(
+      'm2',
+      [
+        {
+          id: 'e4',
+          mission_id: 'm2',
+          claim_text: 'Revenue doubled',
+          claim_label: 'FACT' as const,
+          challenged: false,
+          created_at: new Date().toISOString(),
+        },
+      ],
+      ['123' as unknown as string],
+      [
+        {
+          field: 'shares_outstanding',
+          impact: 'missing',
+          severity: 'high' as const,
+        },
+      ]
+    );
+    expect(pack.items[0]?.claim_label).toBe('UNVERIFIED');
+    const grounded = controller.validateGrounding(
+      { summary: 'Revenue tripled' },
+      pack
+    );
+    if (grounded.isOk()) {
+      expect(grounded.value.unsupportedClaims).toContain('Revenue tripled');
+    }
+  });
+
   it('validates numeric grounding', () => {
     const pack = controller.buildEvidencePack('m1', items, ['sec_10k'], []);
     const grounded = controller.validateGrounding(

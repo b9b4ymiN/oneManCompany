@@ -139,14 +139,16 @@ export class EvidenceController {
     const visit = (value: unknown, parentKey?: string): void => {
       if (typeof value === 'number') {
         const key = parentKey?.toLowerCase() ?? '';
-        const estimateKeys = new Set([
+        const estimateKeys = [
           'assumptions',
           'assumption',
           'estimate',
           'estimates',
           'key_assumptions',
-        ]);
-        const isEstimate = estimateKeys.has(key);
+        ];
+        const isEstimate = estimateKeys.some((segment) =>
+          key.includes(segment)
+        );
         if (!isEstimate && !supportedValues.has(value)) {
           unsupportedNumbers.push(value);
         }
@@ -178,15 +180,17 @@ export class EvidenceController {
         for (const match of value.matchAll(/-?\d+(?:\.\d+)?/g)) {
           const parsed = Number(match[0]);
           const key = parentKey?.toLowerCase() ?? '';
-          const estimateKeys = new Set([
+          const estimateKeys = [
             'assumptions',
             'assumption',
             'estimate',
             'estimates',
             'key_assumptions',
-          ]);
+          ];
           const ignoredStringKeys = new Set(['id', 'section', 'source_name']);
-          const isEstimate = estimateKeys.has(key);
+          const isEstimate = estimateKeys.some((segment) =>
+            key.includes(segment)
+          );
           if (
             !isEstimate &&
             !ignoredStringKeys.has(key) &&
