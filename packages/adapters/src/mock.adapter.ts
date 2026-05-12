@@ -1,5 +1,11 @@
 import { err, ok, type Result } from 'neverthrow';
 import type { AgentId } from '@onemancompany/kernel';
+import type {
+  AdapterRequest,
+  AdapterResult,
+  BackendHealthStatus,
+  RuntimeAdapter,
+} from './base';
 
 export interface MockAdapterRequest {
   mission_id: string;
@@ -180,8 +186,10 @@ function buildFixture(
   return byAgent[agentId];
 }
 
-export class MockAdapter {
-  execute(
+export class MockAdapter implements RuntimeAdapter {
+  readonly backend = 'mock';
+
+  executeLegacy(
     request: MockAdapterRequest
   ): Result<MockAdapterSuccess | MockAdapterFailure, Error> {
     const fixture = buildFixture(request.mission_id, request.agent_id);
@@ -206,5 +214,41 @@ export class MockAdapter {
       return err(new Error(`Unsupported mode ${request.mode}`));
     }
     return ok({ status: 'success', output: fixture });
+  }
+
+  async execute<TOutput>(
+    request: AdapterRequest<TOutput>
+  ): Promise<AdapterResult<TOutput>> {
+    const fixture = buildFixture(request.mission_id, request.agent_id);
+    const parsed = request.schema.safeParse(fixture);
+    if (!parsed.success) {
+      return err({
+        status: 'error',
+        code: 'schema_error',
+        message: parsed.error.message,
+        backend: this.backend,
+        model_id: request.model_id,
+        stderr: '',
+        raw_text: JSON.stringify(fixture),
+      });
+    }
+    return ok({
+      status: 'success',
+      output: parsed.data,
+      raw_text: JSON.stringify(fixture),
+      stderr: '',
+      backend: this.backend,
+      model_id: request.model_id,
+      duration_ms: 0,
+    });
+  }
+
+  async healthCheck(): Promise<BackendHealthStatus> {
+    return {
+      backend: this.backend,
+      healthy: true,
+      reason: 'Mock adapter always available',
+      critical: false,
+    };
   }
 }

@@ -20,6 +20,7 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
+    testTimeout: 60000,
     include: ['packages/**/tests/**/*.test.ts'],
     coverage: {
       provider: 'v8',

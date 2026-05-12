@@ -35,8 +35,9 @@ trust — not hype.
 ### Delivery status
 
 - **Phase 0 — Specification Freeze:** complete
-- **Phase 1 — Kernel Core:** not implemented yet in this repository
-- **Practical state:** ready to begin Phase 1 implementation
+- **Phase 1 — Kernel Core:** implemented
+- **Phase 2 — Runtime Adapters + CLI:** implemented
+- **Practical state:** kernel, adapters, quant tools, and CLI are runnable locally
 
 This repo currently contains the contracts, registries, flows, schemas, and
 domain definitions required before runtime code should be written.
@@ -92,24 +93,24 @@ domain definitions required before runtime code should be written.
 
 This phase is intentionally **document-first**.
 
-| Layer | Current stack |
-| --- | --- |
-| Specification | Markdown + YAML |
-| Persistence contract | SQLite schema |
-| Visual assets | SVG |
+| Layer                   | Current stack                                                       |
+| ----------------------- | ------------------------------------------------------------------- |
+| Specification           | Markdown + YAML                                                     |
+| Persistence contract    | SQLite schema                                                       |
+| Visual assets           | SVG                                                                 |
 | Validation used in repo | markdownlint, yamllint, Python YAML parsing, SQLite in-memory parse |
-| Source of truth | `onemancompany-blueprint-v2.md` |
+| Source of truth         | `onemancompany-blueprint-v2.md`                                     |
 
 ### Planned implementation stack from the blueprint
 
-| Concern | Planned stack |
-| --- | --- |
-| Kernel / orchestration | TypeScript / Node.js |
-| CLI / interface | TypeScript CLI |
-| Persistence | SQLite |
-| Validation | Zod runtime schemas |
-| Adapters | Claude, Gemini, Codex, ZAI, Human, future local LLM |
-| Domain runtime | Investment War Room first |
+| Concern                | Planned stack                                       |
+| ---------------------- | --------------------------------------------------- |
+| Kernel / orchestration | TypeScript / Node.js                                |
+| CLI / interface        | TypeScript CLI                                      |
+| Persistence            | SQLite                                              |
+| Validation             | Zod runtime schemas                                 |
+| Adapters               | Claude, Gemini, Codex, ZAI, Human, future local LLM |
+| Domain runtime         | Investment War Room first                           |
 
 ## Architecture flow
 
@@ -271,3 +272,56 @@ Primary design source:
 
 The files in `docs/`, `registry/`, and `domains/` are the implementation-facing
 contracts derived from that blueprint.
+
+## Runtime setup
+
+### Requirements
+
+- Node.js 20+
+- pnpm
+- Python 3.11+
+- Gemini CLI installed and authenticated for live Gemini research
+- Optional: Claude CLI or `ANTHROPIC_API_KEY`, Codex CLI, `ZAI_API_URL` + `ZAI_API_KEY`
+
+### Install
+
+```bash
+pnpm install
+python3 -m venv .venv-pytools
+. .venv-pytools/bin/activate
+pip install black ruff mypy pytest
+```
+
+### Environment variables
+
+- `ANTHROPIC_API_KEY`
+- `ZAI_API_URL`
+- `ZAI_API_KEY`
+
+Gemini CLI can run without env vars if it is already authenticated locally.
+
+### CLI usage
+
+```bash
+node packages/cli/dist/index.js health
+node packages/cli/dist/index.js run "analyze TEST_STOCK with earnings 400M"
+node packages/cli/dist/index.js status <mission_id>
+node packages/cli/dist/index.js replay <mission_id>
+node packages/cli/dist/index.js journal list
+node packages/cli/dist/index.js journal show <mission_id>
+```
+
+### Example `omc run` output
+
+```text
+mission_id=mission_xxx
+current_state=HUMAN_REVIEW
+DRAFT->PLANNING
+PLANNING->RESEARCHING
+RESEARCHING->ANALYZING
+ANALYZING->CROSS_QA
+CROSS_QA->DEBATING
+DEBATING->SYNTHESIZING
+SYNTHESIZING->HUMAN_REVIEW
+selected gemini-cli
+```

@@ -5,7 +5,7 @@ describe('MockAdapter', () => {
   const adapter = new MockAdapter();
 
   it('returns deterministic success fixtures', () => {
-    const result = adapter.execute({
+    const result = adapter.executeLegacy({
       mission_id: 'm1',
       agent_id: 'researcher-us',
     });
@@ -19,7 +19,7 @@ describe('MockAdapter', () => {
   });
 
   it('simulates timeout and adapter error states with partial output', () => {
-    const timeout = adapter.execute({
+    const timeout = adapter.executeLegacy({
       mission_id: 'm1',
       agent_id: 'cio-synthesizer',
       mode: 'timeout',
@@ -28,7 +28,7 @@ describe('MockAdapter', () => {
     if (timeout.isOk() && timeout.value.status !== 'success') {
       expect(timeout.value.partial_output).not.toBeNull();
     }
-    const adapterError = adapter.execute({
+    const adapterError = adapter.executeLegacy({
       mission_id: 'm1',
       agent_id: 'cio-synthesizer',
       mode: 'adapter_error',

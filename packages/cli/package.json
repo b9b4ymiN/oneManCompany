@@ -1,0 +1,19 @@
+{
+  "name": "@onemancompany/cli",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "omc": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@onemancompany/kernel": "workspace:*",
+    "@onemancompany/adapters": "workspace:*",
+    "@onemancompany/observability": "workspace:*",
+    "commander": "^13.1.0"
+  }
+}

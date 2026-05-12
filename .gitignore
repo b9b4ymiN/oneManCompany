@@ -5,3 +5,9 @@ coverage/
 .venv-tools/
 *.tsbuildinfo
 *Zone.Identifier
+
+.venv-pytools/
+.omc/runtime/
+__pycache__/
+*.pyc
+.pytest_cache/

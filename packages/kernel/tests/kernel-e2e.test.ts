@@ -66,7 +66,7 @@ describe('kernel end-to-end lifecycle', () => {
     step('PLANNING', { brief: plan.value.owner_brief });
     step('RESEARCHING', { teamReady: true, evidenceRequirementsReady: true });
 
-    const researcherResult = adapter.execute({
+    const researcherResult = adapter.executeLegacy({
       mission_id: plan.value.mission_id,
       agent_id: 'researcher-us',
     });
@@ -141,7 +141,7 @@ describe('kernel end-to-end lifecycle', () => {
       }
     > = [];
     for (const agentId of analystIds) {
-      const result = adapter.execute({
+      const result = adapter.executeLegacy({
         mission_id: plan.value.mission_id,
         agent_id: agentId,
       });
@@ -177,7 +177,7 @@ describe('kernel end-to-end lifecycle', () => {
     expect(debate.isOk()).toBe(true);
     step('SYNTHESIZING', { debateRoundsCompleted: 3 });
 
-    const cioResult = adapter.execute({
+    const cioResult = adapter.executeLegacy({
       mission_id: plan.value.mission_id,
       agent_id: 'cio-synthesizer',
     });
@@ -291,7 +291,7 @@ describe('kernel end-to-end lifecycle', () => {
     if (plan.isErr()) return;
     const adapter = new MockAdapter();
     const machine = new MissionStateMachine('ANALYZING');
-    const timeout = adapter.execute({
+    const timeout = adapter.executeLegacy({
       mission_id: plan.value.mission_id,
       agent_id: 'cio-synthesizer',
       mode: 'timeout',
