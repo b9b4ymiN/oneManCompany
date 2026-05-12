@@ -44,24 +44,41 @@ export class ClaudeAdapter implements RuntimeAdapter {
     if (processResult.isOk()) {
       const { stdout, stderr, exitCode, timedOut, durationMs } =
         processResult.value;
-      if (!timedOut && exitCode === 0) {
+      if (timedOut) {
+        return err({
+          status: 'error',
+          code: 'timeout_error',
+          message: 'Claude CLI timed out',
+          backend: this.backend,
+          model_id: request.model_id,
+          stderr,
+          raw_text: stdout,
+          exit_code: exitCode,
+        });
+      }
+      if (exitCode === 0) {
         const json = parseJsonText<TOutput>(
           stdout.trim(),
           this.backend,
           request.model_id,
           stderr
         );
-        if (json.isOk()) {
-          return validateAdapterOutput(
-            request.schema,
-            json.value,
-            this.backend,
-            request.model_id,
-            stdout,
-            stderr,
-            durationMs
-          );
+        if (json.isErr()) {
+          return err(json.error);
         }
+        const validated = validateAdapterOutput(
+          request.schema,
+          json.value,
+          this.backend,
+          request.model_id,
+          stdout,
+          stderr,
+          durationMs
+        );
+        if (validated.isErr()) {
+          return err(validated.error);
+        }
+        return validated;
       }
     }
 

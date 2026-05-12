@@ -1,14 +1,15 @@
 {
   "ticker": "MCS",
-  "decision_state": "CORE_CANDIDATE",
+  "decision_state": "HOLD",
   "fair_value_conservative": 27.38,
   "current_price": 56,
   "price_to_watch": 44,
   "thesis_breakers": [
-    "Demand collapse",
-    "Earnings normalization fails",
-    "Cashflow quality deteriorates",
-    "Moat weakens materially"
+    "If actual Q1 2026 earnings are below 320M THB (>20% variance from scenario)",
+    "If current market price exceeds 26 THB (MOS 30% price is 19.17 THB)",
+    "If normalized earnings contain >25% non-recurring items upon actual statement review",
+    "If company has high debt/equity (>2x) increasing WACC above 11%",
+    "If industry cycle is at peak earnings suggesting mean reversion"
   ],
   "evidence_score": 55,
   "mos_table": [
@@ -27,63 +28,174 @@
   ],
   "valuation": {
     "agent_id": "damodaran-valuation",
-    "mission_id": "mission_740d7fe3-7f49-47e9-b643-8bf7c50fde6d",
-    "summary": "damodaran-valuation analysis summary",
-    "evidence_score": 82,
+    "mission_id": "mission_1e7ec55c-1f3a-46bc-a1de-3f2bcd21fa52",
+    "summary": "DCF valuation completed on scenario earnings of 400M THB. Base case fair value 37.06 THB/share implies ~15.5% market growth expectation via reverse DCF. MOS 30% requires entry at 19.17 THB or below. Limited forensic confidence due to absence of actual financial statements.",
+    "evidence_score": 25,
     "evidence_used": [
       {
-        "claim": "Revenue was 400000000",
-        "source_name": "Mock 10-K",
+        "claim": "MCS listing and issuer profile available on SET",
+        "source_name": "SET Company Profile",
         "source_tier": "tier_1",
-        "label": "FACT"
+        "label": "FACT",
+        "section": "issuer profile"
+      },
+      {
+        "claim": "Scenario earnings 400M THB provided by owner",
+        "source_name": "Owner brief",
+        "source_tier": "tier_2",
+        "label": "ASSUMPTION",
+        "section": "scenario"
+      },
+      {
+        "claim": "Normalized earnings base 400M THB from forensic analysis",
+        "source_name": "forensic-accountant",
+        "source_tier": "tier_2",
+        "label": "DERIVED",
+        "section": "normalization"
       }
     ],
-    "data_gaps": [],
+    "data_gaps": [
+      {
+        "field": "current_market_price",
+        "impact": "Cannot determine actual MOS from current price",
+        "severity": "high"
+      },
+      {
+        "field": "shares_outstanding",
+        "impact": "Per-share calculations derived from assumptions",
+        "severity": "high"
+      },
+      {
+        "field": "historical_growth_rate",
+        "impact": "Growth assumptions not anchored to historical data",
+        "severity": "high"
+      },
+      {
+        "field": "industry_peer_multiples",
+        "impact": "No relative valuation cross-check",
+        "severity": "medium"
+      },
+      {
+        "field": "capex_and_depreciation_schedule",
+        "impact": "FCF calculation relies on simplified assumptions",
+        "severity": "medium"
+      },
+      {
+        "field": "working_capital_requirements",
+        "impact": "Cash conversion cycle not modeled",
+        "severity": "medium"
+      },
+      {
+        "field": "debt_schedule_and_cost_of_capital",
+        "impact": "WACC estimated, not calculated",
+        "severity": "high"
+      }
+    ],
     "assumptions": [
       {
-        "name": "base growth",
-        "value": 0.08,
-        "sensitivity": "margin of safety",
-        "rationale": "Scenario assumption",
+        "name": "normalized_earnings",
+        "value": "400M THB",
+        "sensitivity": "high",
+        "rationale": "Owner scenario assumption; forensic could not verify due to missing financials",
+        "evidence": [
+          {
+            "claim": "Unknown claim",
+            "source_name": "Unknown source",
+            "source_tier": "tier_1",
+            "label": "FACT"
+          }
+        ]
+      },
+      {
+        "name": "wacc_base_case",
+        "value": "9%",
+        "sensitivity": "high",
+        "rationale": "Standard emerging markets discount rate; not calculated from actual capital structure",
+        "evidence": []
+      },
+      {
+        "name": "terminal_growth",
+        "value": "2.5%",
+        "sensitivity": "medium",
+        "rationale": "Conservative long-term GDP-aligned growth",
+        "evidence": []
+      },
+      {
+        "name": "shares_outstanding_implied",
+        "value": "derived from DCF output",
+        "sensitivity": "high",
+        "rationale": "Required to convert enterprise DCF to per-share fair value",
+        "evidence": []
+      },
+      {
+        "name": "perpetuity_growth_cap",
+        "value": "3%",
+        "sensitivity": "medium",
+        "rationale": "Damodaran standard cap for emerging markets",
         "evidence": []
       }
     ],
-    "open_questions": [],
+    "open_questions": [
+      "What is MCS current market price to calculate actual MOS?",
+      "What is the actual shares outstanding count?",
+      "What is MCS historical 5-year CAGR for earnings?",
+      "What is the industry average WACC for Thai SET small-cap industrials?",
+      "What are the peer group trading multiples (EV/EBITDA, P/E)?",
+      "What is the actual revenue base and margin profile?",
+      "Does MCS have significant off-balance sheet obligations?"
+    ],
     "thesis_breakers": [
-      "Demand collapse"
+      "If actual Q1 2026 earnings are below 320M THB (>20% variance from scenario)",
+      "If current market price exceeds 26 THB (MOS 30% price is 19.17 THB)",
+      "If normalized earnings contain >25% non-recurring items upon actual statement review",
+      "If company has high debt/equity (>2x) increasing WACC above 11%",
+      "If industry cycle is at peak earnings suggesting mean reversion"
     ],
     "fair_value_conservative": 27.38,
     "fair_value_base": 37.06,
     "fair_value_optimistic": 50.13,
-    "implied_growth_at_market_price": 0.12,
-    "key_assumptions": [
-      {
-        "name": "base growth",
-        "value": 0.08,
-        "sensitivity": "margin of safety",
-        "rationale": "Scenario assumption",
-        "evidence": []
-      }
-    ],
-    "what_would_change_my_mind": [
-      "Revenue stagnation"
-    ],
-    "data_gaps_found": [],
-    "reverse_dcf_summary": "Market implies durable growth",
-    "conviction_level": 7,
-    "conviction_reasoning": "DCF remains attractive",
     "implied_growth_rate": 0.154741,
-    "price_for_mos_30": 19.17
+    "price_for_mos_30": 19.17,
+    "mos_table": {
+      "mos_10": 24.64,
+      "mos_20": 21.9,
+      "mos_30": 19.17,
+      "mos_40": 16.43
+    },
+    "sensitivity_matrix": [
+      {
+        "wacc": 0.08,
+        "terminal_growth": 0.02,
+        "fair_value": 42
+      },
+      {
+        "wacc": 0.08,
+        "terminal_growth": 0.03,
+        "fair_value": 47.77
+      },
+      {
+        "wacc": 0.09,
+        "terminal_growth": 0.02,
+        "fair_value": 35.31
+      },
+      {
+        "wacc": 0.09,
+        "terminal_growth": 0.03,
+        "fair_value": 39.1
+      },
+      {
+        "wacc": 0.1,
+        "terminal_growth": 0.02,
+        "fair_value": 30.33
+      },
+      {
+        "wacc": 0.1,
+        "terminal_growth": 0.03,
+        "fair_value": 32.95
+      }
+    ]
   },
-  "assumptions": [
-    {
-      "name": "base growth",
-      "value": 0.08,
-      "sensitivity": "margin of safety",
-      "rationale": "Scenario assumption",
-      "evidence": []
-    }
-  ],
+  "assumptions": [],
   "evidence_summary": [
     "MCS listing and issuer profile available on SET company profile | SET Company Profile | tier_1",
     "MCS annual disclosure is expected in 56-1 One Report and annual report materials | 56-1 One Report | tier_1",
@@ -93,28 +205,28 @@
   "analyst_views": [
     {
       "agent_id": "damodaran-valuation",
-      "summary": "damodaran-valuation analysis summary"
+      "summary": "DCF valuation completed on scenario earnings of 400M THB. Base case fair value 37.06 THB/share implies ~15.5% market growth expectation via reverse DCF. MOS 30% requires entry at 19.17 THB or below. Limited forensic confidence due to absence of actual financial statements."
     },
     {
       "agent_id": "klarman-downside",
-      "summary": "klarman-downside analysis summary"
+      "summary": "Insufficient evidence to assess downside. Earnings figure (400M) lacks context for valuation, sustainability, or capital loss analysis. Critical data gaps prevent MOS validation."
     },
     {
       "agent_id": "peter-lynch-story",
-      "summary": "peter-lynch-story analysis summary"
+      "summary": "Preliminary Peter Lynch classification for MCS (Muang Thai Financial Group) with Q1 2026 earnings scenario of 400M. Evidence pack confirms company is listed on SET and regulatory filings exist, but critical business story, moat, and growth trajectory analysis requires additional data. Growth tentatively categorized based on Thailand microfinance sector context and earnings hint, pending verification."
     },
     {
       "agent_id": "portfolio-allocator",
-      "summary": "portfolio-allocator analysis summary"
+      "summary": "Insufficient evidence for confident sizing recommendation. Q1 2026 earnings assumption of 400M lacks historical context, margin trajectory, and valuation anchor. MOS > 30% signal is positive but requires verification of intrinsic value calculation methodology."
     },
     {
       "agent_id": "pro-investor",
-      "summary": "pro-investor analysis summary"
+      "summary": "Insufficient evidence for investment conviction. Owner checklist completely undefined; only 4 evidence items with 3 being generic source references and 1 scenario assumption. No actual valuation, balance sheet, or cashflow data provided."
     }
   ],
   "follow_up_events": [
     "Track next quarter filing",
     "Review management guidance consistency"
   ],
-  "executive_summary": "Structured final memo"
+  "executive_summary": "Investment analysis report for MCS (Muang Thai Financial Group) under Q1 2026 earnings scenario of 400M THB with claimed margin of safety >30%. All five investment analysts (damodaran-valuation, klarman-downside, peter-lynch-story, portfolio-allocator, pro-investor) unanimously agree evidence is insufficient for any investment decision. The 400M earnings figure remains an unverified scenario assumption. MOS > 30% claim cannot be validated absent current market price and intrinsic value methodology. Critical data gaps include current market price, shares outstanding, historical financials, business model description, competitive positioning, debt structure, and management track record. Recommendation: PAUSE - evidence collection required before any investment decision."
 }

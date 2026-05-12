@@ -186,6 +186,46 @@ export async function runProcess(
   });
 }
 
+
+function stripCodeFences(text: string): string {
+  const trimmed = text.trim();
+  const fenceMatch = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
+  return fenceMatch && fenceMatch[1] ? fenceMatch[1].trim() : trimmed;
+}
+
+function extractFirstJsonCandidate(text: string): string {
+  const stripped = stripCodeFences(text);
+  const startObject = stripped.indexOf('{');
+  const startArray = stripped.indexOf('[');
+  let start = -1;
+  if (startObject >= 0 && startArray >= 0) start = Math.min(startObject, startArray);
+  else start = Math.max(startObject, startArray);
+  if (start < 0) return stripped;
+  const first = stripped[start];
+  const close = first === '{' ? '}' : ']';
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  for (let i = start; i < stripped.length; i += 1) {
+    const ch = stripped[i];
+    if (escape) { escape = false; continue; }
+    if (ch === '\\') {
+      escape = true;
+      continue;
+    }
+    if (ch === '"') { inString = !inString; continue; }
+    if (inString) continue;
+    if (ch === first) depth += 1;
+    if (ch === close) {
+      depth -= 1;
+      if (depth === 0) {
+        return stripped.slice(start, i + 1).trim();
+      }
+    }
+  }
+  return stripped;
+}
+
 export function parseJsonText<T>(
   text: string,
   backend: string,
@@ -193,7 +233,7 @@ export function parseJsonText<T>(
   stderr: string
 ): Result<T, AdapterFailure> {
   try {
-    return ok(JSON.parse(text) as T);
+    return ok(JSON.parse(extractFirstJsonCandidate(text)) as T);
   } catch (error) {
     return err({
       status: 'error',
