@@ -12,6 +12,7 @@ import { rejectCommand } from './commands/reject';
 import { mergeCommand } from './commands/merge';
 import { statusCommand } from './commands/status';
 import { listCommand } from './commands/list';
+import { mcpCommand } from './commands/mcp';
 
 const program = new Command();
 program
@@ -122,6 +123,14 @@ program
   .description('List all tasks')
   .action(async () => {
     await listCommand();
+  });
+
+// MCP command
+program
+  .command('mcp')
+  .description('Start Flock MCP server for Claude Code integration')
+  .action(async () => {
+    await mcpCommand();
   });
 
 void program.parseAsync(process.argv);

@@ -1,21 +1,18 @@
 {
-  "name": "@onemancompany/flock-cli",
+  "name": "@onemancompany/flock-mcp",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "flock": "dist/index.js"
-  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@onemancompany/flock-kernel": "workspace:*",
-    "@onemancompany/flock-mcp": "workspace:*",
-    "chalk": "^5.4.1",
-    "commander": "^13.1.0"
+    "drizzle-orm": "^0.38.2",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.2"

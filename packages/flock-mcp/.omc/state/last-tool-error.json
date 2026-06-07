@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /home/dasimoa/oneManCompany && npx tsc -b && ls -la packages/flock-mcp/dist/ && find packages/flock-mcp/dist -name \\\"*.js\\\" -type f\",\"timeout\":60000,\"description\":\"Build from root and c...",
+  "error": "Exit code 2\nls: cannot access 'packages/flock-mcp/dist/': No such file or directory",
+  "timestamp": "2026-06-07T12:51:23.516Z",
+  "retry_count": 2
+}
