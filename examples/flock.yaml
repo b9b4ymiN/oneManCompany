@@ -1,0 +1,158 @@
+# =============================================================================
+# Flock Configuration Example
+# =============================================================================
+# This is a comprehensive example configuration for Flock, the multi-agent
+# orchestration control tower. Customize values based on your environment.
+#
+# File location: .flock/config.yml, flock.yml, or .flockrc (searched in order)
+# =============================================================================
+
+# =============================================================================
+# Agents Configuration
+# =============================================================================
+# Define the AI coding agents that Flock can spawn. Each agent must be:
+# - A CLI tool that accepts prompts via stdin
+# - Capable of reading/writing files in its workspace
+# - Optionally, a readonly agent for review/inspection tasks
+# =============================================================================
+agents:
+
+  # ---------------------------------------------------------------------------
+  # Claude Code (Anthropic's official CLI)
+  # ---------------------------------------------------------------------------
+  claude-code:
+    type: cli
+    command: claude
+    # Skip permission prompts for automated runs
+    args: ["--dangerously-skip-permissions"]
+    mode: write  # Can modify files
+
+  # ---------------------------------------------------------------------------
+  # Claude Code with conservative defaults
+  # ---------------------------------------------------------------------------
+  claude-conservative:
+    type: cli
+    command: claude
+    # Additional safety flags
+    args: [
+      "--dangerously-skip-permissions",
+      "--max-tokens", "50000"
+    ]
+    mode: write
+
+  # ---------------------------------------------------------------------------
+  # OpenAI Codex (GPT-based CLI)
+  # ---------------------------------------------------------------------------
+  codex:
+    type: cli
+    command: codex
+    args: []
+    mode: write  # Can modify files
+
+  # ---------------------------------------------------------------------------
+  # Gemini-based reviewer (read-only inspection)
+  # ---------------------------------------------------------------------------
+  gemini-reviewer:
+    type: cli
+    command: gemini
+    args: []
+    mode: readonly  # Inspection only, no writes
+
+  # ---------------------------------------------------------------------------
+  # Another Claude instance for parallel work
+  # ---------------------------------------------------------------------------
+  claude-reviewer:
+    type: cli
+    command: claude
+    args: ["--dangerously-skip-permissions"]
+    mode: readonly  # Use for code review only
+
+# =============================================================================
+# Quality Gates
+# =============================================================================
+# Gates are commands that must pass before a task can be approved for merge.
+# All gates run in the workspace directory after agent completion.
+# =============================================================================
+gates:
+
+  # ---------------------------------------------------------------------------
+  # Type checking
+  # ---------------------------------------------------------------------------
+  typecheck:
+    command: "bun run typecheck"
+    # Example alternative:
+    # command: "tsc --noEmit"
+
+  # ---------------------------------------------------------------------------
+  # Test suite
+  # ---------------------------------------------------------------------------
+  test:
+    command: "bun run test"
+    # Example alternatives:
+    # command: "vitest run"
+    # command: "pytest"
+
+  # ---------------------------------------------------------------------------
+  # Linting
+  # ---------------------------------------------------------------------------
+  lint:
+    command: "bun run lint"
+    # Example alternatives:
+    # command: "eslint . --max-warnings=0"
+    # command: "ruff check ."
+
+  # ---------------------------------------------------------------------------
+  # Security audit
+  # ---------------------------------------------------------------------------
+  audit:
+    command: "bun audit"
+    # Example alternatives:
+    # command: "npm audit"
+    # command: "cargo audit"
+
+  # ---------------------------------------------------------------------------
+  # Build verification
+  # ---------------------------------------------------------------------------
+  build:
+    command: "bun run build"
+    # Ensures the project builds successfully
+
+# =============================================================================
+# Policies
+# =============================================================================
+# Global policies that control Flock's behavior. These defaults prioritize
+# safety and human oversight over automation speed.
+# =============================================================================
+policies:
+
+  # Require explicit human approval before any merge
+  require_human_approval_before_merge: true
+
+  # Prevent agents from writing directly to the main branch
+  forbid_direct_main_branch_write: true
+
+  # Require agents to provide a summary of changes made
+  require_diff_summary: true
+
+  # Require test coverage for any code changes
+  require_tests_for_code_change: true
+
+  # Keep failed workspaces for inspection (vs auto-cleanup)
+  preserve_failed_workspaces: true
+
+  # Maximum number of agent runs running concurrently
+  max_parallel_runs: 4
+
+  # Default timeout for agent runs (in minutes)
+  default_timeout_minutes: 60
+
+# =============================================================================
+# Advanced Configuration (Future)
+# =============================================================================
+# These sections are planned for future Flock releases:
+#
+# - reviewers: Configure automated review policies
+# - notifications: Configure Slack/Discord/email alerts
+# - integrations: Configure GitHub/GitLab integration
+# - workspace: Configure workspace lifecycle and cleanup
+# =============================================================================

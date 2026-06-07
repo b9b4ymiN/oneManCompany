@@ -16,6 +16,10 @@ export default defineConfig({
         __dirname,
         'packages/observability/src/index.ts'
       ),
+      '@onemancompany/flock-kernel': path.resolve(
+        __dirname,
+        'packages/flock-kernel/src/index.ts'
+      ),
     },
   },
   test: {

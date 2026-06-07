@@ -23,7 +23,9 @@
       "@onemancompany/observability": ["packages/observability/src/index.ts"],
       "@onemancompany/observability/*": ["packages/observability/src/*"],
       "@onemancompany/cli": ["packages/cli/src/index.ts"],
-      "@onemancompany/cli/*": ["packages/cli/src/*"]
+      "@onemancompany/cli/*": ["packages/cli/src/*"],
+      "@onemancompany/flock-kernel": ["packages/flock-kernel/src/index.ts"],
+      "@onemancompany/flock-kernel/*": ["packages/flock-kernel/src/*"]
     }
   }
 }

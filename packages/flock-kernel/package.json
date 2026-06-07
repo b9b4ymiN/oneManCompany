@@ -1,0 +1,21 @@
+{
+  "name": "@onemancompany/flock-kernel",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "drizzle-orm": "^0.38.2",
+    "neverthrow": "^6.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "drizzle-kit": "^0.30.4"
+  }
+}

@@ -4,6 +4,8 @@
     { "path": "./packages/kernel" },
     { "path": "./packages/adapters" },
     { "path": "./packages/observability" },
-    { "path": "./packages/cli" }
+    { "path": "./packages/cli" },
+    { "path": "./packages/flock-kernel" },
+    { "path": "./packages/flock-cli" }
   ]
 }
