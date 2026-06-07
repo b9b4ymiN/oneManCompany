@@ -51,6 +51,28 @@ import {
   TOOL_NAME_TASK_DEPS_REMOVE,
   TOOL_DESC_TASK_DEPS_REMOVE,
 } from './tools/tasks.js';
+import {
+  flockResearch,
+  flockResearchSchema,
+  TOOL_NAME_RESEARCH,
+  TOOL_DESC_RESEARCH,
+} from './tools/research.js';
+import {
+  flockCompileReport,
+  flockCompileReportSchema,
+  TOOL_NAME_COMPILE_REPORT,
+  TOOL_DESC_COMPILE_REPORT,
+} from './tools/report.js';
+import {
+  flockRunExecute,
+  flockRunExecuteSchema,
+  TOOL_NAME_RUN_EXECUTE,
+  TOOL_DESC_RUN_EXECUTE,
+  flockTaskOutput,
+  flockTaskOutputSchema,
+  TOOL_NAME_TASK_OUTPUT,
+  TOOL_DESC_TASK_OUTPUT,
+} from './tools/execution.js';
 
 // ============================================================================
 // FlockMCPServer Class
@@ -154,6 +176,38 @@ export class FlockMCPServer {
       TOOL_DESC_TASK_DEPS_REMOVE,
       flockTaskDepsRemoveSchema.shape,
       async (_, args) => toMCPResult(await flockTaskDepsRemove(this.db, args as any))
+    );
+
+    // Research tool
+    this.server.tool(
+      TOOL_NAME_RESEARCH,
+      TOOL_DESC_RESEARCH,
+      flockResearchSchema.shape,
+      async (_, args) => toMCPResult(await flockResearch(this.db, args as any))
+    );
+
+    // Report compilation tool
+    this.server.tool(
+      TOOL_NAME_COMPILE_REPORT,
+      TOOL_DESC_COMPILE_REPORT,
+      flockCompileReportSchema.shape,
+      async (_, args) => toMCPResult(await flockCompileReport(this.db, args as any))
+    );
+
+    // Run execution tool
+    this.server.tool(
+      TOOL_NAME_RUN_EXECUTE,
+      TOOL_DESC_RUN_EXECUTE,
+      flockRunExecuteSchema.shape,
+      async (_, args) => toMCPResult(await flockRunExecute(this.db, args as any))
+    );
+
+    // Task output retrieval tool
+    this.server.tool(
+      TOOL_NAME_TASK_OUTPUT,
+      TOOL_DESC_TASK_OUTPUT,
+      flockTaskOutputSchema.shape,
+      async (_, args) => toMCPResult(await flockTaskOutput(this.db, args as any))
     );
   }
 
