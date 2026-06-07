@@ -78,6 +78,59 @@ export { FlockOrchestrator, createOrchestrator } from './orchestrator';
 export type { StartRunConfig } from './orchestrator';
 
 // ============================================================================
+// DAG Module
+// ============================================================================
+
+export * from './dag';
+
+// ============================================================================
+// Scheduler
+// ============================================================================
+
+export {
+  RunQueue,
+  createRunQueue,
+  AgentPool,
+  createAgentPool,
+  ParallelScheduler,
+  createParallelScheduler,
+  type QueueEntry,
+  type QueueStatus,
+  type AgentInfo,
+  type ParallelSchedulerConfig,
+  PRIORITY_VALUES,
+  DEFAULT_PRIORITY,
+} from './scheduler';
+
+// ============================================================================
+// Retry Module
+// ============================================================================
+
+export { RetryEngine, createRetryEngine } from './retry';
+export type { RetryDecision, RetryAttempt } from './retry';
+
+// ============================================================================
+// Reviewer Module
+// ============================================================================
+
+export { ReviewerEngine, createReviewerEngine } from './reviewer';
+export type { ConsensusResult, ReviewerSpawnConfig, ParsedReviewOutput } from './reviewer';
+
+// ============================================================================
+// Workflows Module
+// ============================================================================
+
+export { WorkflowRunner, createWorkflowRunner } from './workflows';
+export type {
+  SequentialChain,
+  ParallelFanOut,
+  FanIn,
+  ReviewPipeline,
+  WorkflowResult,
+  WorkflowConfig,
+} from './workflows';
+
+// ============================================================================
 // Observability
 // ============================================================================
 

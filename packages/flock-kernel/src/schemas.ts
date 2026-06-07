@@ -215,6 +215,84 @@ export const FlockConfigSchema = z.object({
   agents: z.record(z.string(), ConfigAgentSchema),
   gates: z.record(z.string(), ConfigGateSchema),
   policies: ConfigPoliciesSchema,
+  retry: z
+    .object({
+      maxRetries: z.number().int().nonnegative().default(3),
+      retryOnGateFailure: z.boolean().default(true),
+      retryOnAgentCrash: z.boolean().default(true),
+      retryDelayMs: z.number().int().nonnegative().default(5000),
+      escalateToHumanAfterMaxRetries: z.boolean().default(true),
+      allowedAgents: z.array(z.string()).optional(),
+    })
+    .optional(),
+  review: z
+    .object({
+      mode: z.enum(['single', 'consensus']).default('consensus'),
+      requiredApprovals: z.number().int().positive().default(1),
+      autoRejectThreshold: z.number().int().positive().default(2),
+    })
+    .optional(),
+});
+
+// ============================================================================
+// Retry and Reviewer Schemas
+// ============================================================================
+
+export const RetryPolicySchema = z.object({
+  maxRetries: z.number().int().nonnegative().default(3),
+  retryOnGateFailure: z.boolean().default(true),
+  retryOnAgentCrash: z.boolean().default(true),
+  retryDelayMs: z.number().int().nonnegative().default(5000),
+  escalateToHumanAfterMaxRetries: z.boolean().default(true),
+  allowedAgents: z.array(z.string()).optional(),
+});
+
+export const ReviewerConfigSchema = z.object({
+  agentId: z.string().min(1, 'Agent ID is required'),
+  mode: z.enum(['single', 'consensus']),
+  requiredApprovals: z.number().int().positive().default(1),
+  autoRejectThreshold: z.number().int().positive().default(2),
+});
+
+export const ReviewerPolicySchema = z.object({
+  mode: z.enum(['single', 'consensus']).default('consensus'),
+  requiredApprovals: z.number().int().positive().default(1),
+  autoRejectThreshold: z.number().int().positive().default(2),
+});
+
+export const ConsensusResultSchema = z.object({
+  reached: z.boolean(),
+  verdict: z.enum(['approved', 'rejected', 'pending']),
+  approvalCount: z.number().int().nonnegative(),
+  rejectionCount: z.number().int().nonnegative(),
+  pendingCount: z.number().int().nonnegative(),
+  totalReviews: z.number().int().nonnegative(),
+});
+
+// ============================================================================
+// Scheduler Schemas
+// ============================================================================
+
+export const QueueEntrySchema = z.object({
+  runId: z.string().uuid(),
+  taskId: z.string().uuid(),
+  agentId: z.string().min(1),
+  priority: z.number().int().positive(),
+  enqueuedAt: isoTimestampSchema,
+});
+
+export const QueueStatusSchema = z.object({
+  queued: z.array(QueueEntrySchema),
+  running: z.array(RunSchema),
+  availableSlots: z.number().int().nonnegative(),
+  maxParallel: z.number().int().positive(),
+});
+
+export const AgentInfoSchema = z.object({
+  id: z.string().min(1),
+  config: AgentConfigSchema,
+  activeRuns: z.number().int().nonnegative(),
+  isAvailable: z.boolean(),
 });
 
 // ============================================================================

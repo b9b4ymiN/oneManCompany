@@ -1,0 +1,10 @@
+{
+  "active": true,
+  "skill_name": "claude-api",
+  "session_id": "0d2470c7-b9a8-48f3-9718-21954e2df779",
+  "started_at": "2026-06-07T12:09:10.584Z",
+  "last_checked_at": "2026-06-07T12:09:10.584Z",
+  "reinforcement_count": 0,
+  "max_reinforcements": 3,
+  "stale_ttl_ms": 300000
+}

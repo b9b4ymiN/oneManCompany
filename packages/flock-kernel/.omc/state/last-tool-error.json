@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls -la /home/dasimoa/oneManCompany/packages/flock-kernel/*.config.*\",\"description\":\"List config files\"}",
+  "error": "Exit code 2\nls: cannot access '/home/dasimoa/oneManCompany/packages/flock-kernel/*.config.*': No such file or directory",
+  "timestamp": "2026-06-07T11:46:26.247Z",
+  "retry_count": 2
+}

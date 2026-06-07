@@ -5,6 +5,8 @@ import { safeEq, safeDesc } from '../drizzle-helpers';
  * Review a task and show summary, diff, gate results.
  */
 
+import { Command } from 'commander';
+import { randomUUID } from 'node:crypto';
 import { resolve } from 'node:path';
 import { createDatabase, loadConfigSync } from '@onemancompany/flock-kernel';
 import { eq, and } from 'drizzle-orm';
@@ -171,3 +173,126 @@ export async function reviewCommand(taskId: string): Promise<void> {
     console.log('Task approved. Ready to merge with: flock merge', taskId);
   }
 }
+
+/**
+ * Assign reviewer action.
+ */
+function assignReviewerAction(taskId: string, options: { agent: string }): void {
+  const db = createDatabase(findFlockDbPath());
+
+  const task = db.db.select().from(db.schema.tasks).where(safeEq(db.schema.tasks, 'id', taskId)).get();
+
+  if (!task) {
+    console.error(`Task not found: ${taskId}`);
+    process.exit(1);
+  }
+
+  // Create reviewer assignment (recorded as an auto-review request)
+  const reviewId = randomUUID();
+  const now = new Date().toISOString();
+
+  (db.db.insert(db.schema.reviews).values as any)({
+    id: reviewId,
+    task_id: taskId,
+    reviewer: options.agent,
+    verdict: 'ASK_ANOTHER_AGENT',
+    comment: 'Auto-assigned for review',
+    created_at: now,
+  }).run();
+
+  console.log(`✓ Reviewer assigned: ${options.agent} -> ${taskId}`);
+  console.log(`  Review ID: ${reviewId}`);
+}
+
+/**
+ * List reviews action.
+ */
+function listReviewsAction(taskId: string): void {
+  const db = createDatabase(findFlockDbPath());
+
+  const task = db.db.select().from(db.schema.tasks).where(safeEq(db.schema.tasks, 'id', taskId)).get();
+
+  if (!task) {
+    console.error(`Task not found: ${taskId}`);
+    process.exit(1);
+  }
+
+  const reviews = db.db
+    .select()
+    .from(db.schema.reviews)
+    .where(safeEq(db.schema.reviews, 'task_id', taskId))
+    .orderBy(db.schema.reviews.created_at)
+    .all();
+
+  if (reviews.length === 0) {
+    console.log(`Task ${taskId} has no reviews.`);
+    return;
+  }
+
+  console.log(`Reviews for ${taskId}: ${task.title}`);
+  console.log();
+
+  // Count consensus
+  const approvals = reviews.filter((r) => r.verdict === 'APPROVE').length;
+  const rejections = reviews.filter((r) => r.verdict === 'REJECT').length;
+  const pending = reviews.filter((r) => r.verdict === 'ASK_ANOTHER_AGENT' || r.verdict === 'REQUEST_CHANGES').length;
+
+  for (const review of reviews) {
+    const icon = getVerdictIcon(review.verdict);
+    console.log(`  ${icon} ${review.reviewer}: ${review.verdict}`);
+    console.log(`    ${review.comment}`);
+    console.log(`    ${review.created_at}`);
+  }
+
+  console.log();
+  console.log(`Consensus:`);
+  console.log(`  Approvals: ${approvals}`);
+  console.log(`  Rejections: ${rejections}`);
+  console.log(`  Pending: ${pending}`);
+
+  if (approvals > rejections) {
+    console.log(`  Status: ✓ Leaning towards approval`);
+  } else if (rejections > approvals) {
+    console.log(`  Status: ✗ Leaning towards rejection`);
+  } else {
+    console.log(`  Status: ⊘ No consensus yet`);
+  }
+}
+
+/**
+ * Get verdict icon.
+ */
+function getVerdictIcon(verdict: string): string {
+  const icons: Record<string, string> = {
+    APPROVE: '✓',
+    REJECT: '✗',
+    REQUEST_CHANGES: '↩️',
+    ASK_ANOTHER_AGENT: '👀',
+  };
+  return icons[verdict] || '❓';
+}
+
+/**
+ * Find the Flock database path.
+ */
+function findFlockDbPath(): string {
+  return resolve(process.cwd(), '.flock', 'flock.db');
+}
+
+/**
+ * Export reviewer commands.
+ */
+export const reviewerCommands = [
+  new Command('assign-reviewer')
+    .description('Assign a reviewer agent to a task')
+    .argument('<taskId>', 'Task ID')
+    .option('-a, --agent <agentId>', 'Reviewer agent ID')
+    .requiredOption('-a, --agent <agentId>', 'Reviewer agent ID')
+    .action(assignReviewerAction),
+
+  new Command('reviews')
+    .description('List all reviews for a task with consensus status')
+    .argument('<taskId>', 'Task ID')
+    .action(listReviewsAction),
+];
+

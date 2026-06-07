@@ -338,6 +338,144 @@ export interface FlockConfig {
   gates: Record<string, ConfigGate>;
   /** Policy settings */
   policies: ConfigPolicies;
+  /** Retry policy settings */
+  retry?: RetryPolicy;
+  /** Reviewer policy settings */
+  review?: ReviewerPolicy;
+}
+
+// ============================================================================
+// Retry Types
+// ============================================================================
+
+/**
+ * Retry policy for auto-retry behavior.
+ */
+export interface RetryPolicy {
+  /** Maximum number of retry attempts (default: 3) */
+  maxRetries: number;
+  /** Auto-retry when quality gates fail */
+  retryOnGateFailure: boolean;
+  /** Auto-retry when agent exits non-zero */
+  retryOnAgentCrash: boolean;
+  /** Delay between retries in milliseconds (default: 5000) */
+  retryDelayMs: number;
+  /** Request human review after exhausting retries */
+  escalateToHumanAfterMaxRetries: boolean;
+  /** Agents allowed for retry (empty = any) */
+  allowedAgents?: string[];
+}
+
+// ============================================================================
+// Reviewer Types
+// ============================================================================
+
+/**
+ * Configuration for a reviewer agent.
+ */
+export interface ReviewerConfig {
+  /** The reviewer agent ID */
+  agentId: string;
+  /** Single reviewer or consensus panel */
+  mode: 'single' | 'consensus';
+  /** For consensus: how many approvals needed */
+  requiredApprovals: number;
+  /** If N reviewers reject, auto-reject */
+  autoRejectThreshold: number;
+}
+
+/**
+ * Reviewer assignment tracking.
+ */
+export interface ReviewerAssignment {
+  /** Task being reviewed */
+  taskId: string;
+  /** Reviewer configuration */
+  reviewerConfig: ReviewerConfig;
+  /** Reviews collected so far */
+  reviews: Review[];
+  /** Whether consensus has been reached */
+  consensusReached: boolean;
+  /** Current verdict */
+  verdict: 'approved' | 'rejected' | 'pending';
+}
+
+/**
+ * Reviewer policy from config.
+ */
+export interface ReviewerPolicy {
+  /** Default reviewer mode */
+  mode: 'single' | 'consensus';
+  /** Required approvals for consensus */
+  requiredApprovals: number;
+  /** Auto-reject threshold */
+  autoRejectThreshold: number;
+}
+
+/**
+ * Result of a consensus check.
+ */
+export interface ConsensusResult {
+  /** Whether consensus was reached */
+  reached: boolean;
+  /** Final verdict based on consensus */
+  verdict: 'approved' | 'rejected' | 'pending';
+  /** Number of approval reviews */
+  approvalCount: number;
+  /** Number of rejection reviews */
+  rejectionCount: number;
+  /** Number of pending reviews */
+  pendingCount: number;
+  /** Total number of reviews */
+  totalReviews: number;
+}
+
+// ============================================================================
+// Scheduler Types
+// ============================================================================
+
+/**
+ * A queue entry representing a run waiting to be scheduled.
+ */
+export interface QueueEntry {
+  /** Unique run identifier */
+  runId: string;
+  /** Task this run is for */
+  taskId: string;
+  /** Agent assigned to this run */
+  agentId: string;
+  /** Priority level (higher = more urgent) */
+  priority: number;
+  /** ISO timestamp when entry was enqueued */
+  enqueuedAt: string;
+}
+
+/**
+ * Status of the run queue.
+ */
+export interface QueueStatus {
+  /** Currently queued runs */
+  queued: QueueEntry[];
+  /** Currently running runs */
+  running: Run[];
+  /** Number of available slots for new runs */
+  availableSlots: number;
+  /** Maximum parallel runs allowed */
+  maxParallel: number;
+}
+
+/**
+ * Information about an agent's current state.
+ */
+export interface AgentInfo {
+  /** Unique agent identifier */
+  id: string;
+  /** Agent configuration */
+  config: AgentConfig;
+  /** Number of currently active runs for this agent */
+  activeRuns: number;
+  /** Whether agent is available for new work */
+  isAvailable: boolean;
 }
 
 // ============================================================================

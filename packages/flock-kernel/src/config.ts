@@ -79,6 +79,18 @@ export const defaultConfig: FlockConfig = {
     max_parallel_runs: 4,
     default_timeout_minutes: 60,
   },
+  retry: {
+    maxRetries: 3,
+    retryOnGateFailure: true,
+    retryOnAgentCrash: true,
+    retryDelayMs: 5000,
+    escalateToHumanAfterMaxRetries: true,
+  },
+  review: {
+    mode: 'consensus',
+    requiredApprovals: 1,
+    autoRejectThreshold: 2,
+  },
 };
 
 /**

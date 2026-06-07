@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "createdAt": "2026-06-07T11:25:17.781Z",
+  "updatedAt": "2026-06-07T11:25:17.781Z",
+  "briefPath": ".omc/ultragoal/brief.md",
+  "goalsPath": ".omc/ultragoal/goals.json",
+  "ledgerPath": ".omc/ultragoal/ledger.jsonl",
+  "claudeGoalMode": "aggregate",
+  "goals": [
+    {
+      "id": "G001-dag-engine",
+      "title": "DAG Engine",
+      "objective": "Build task dependency resolution with DAG ordering, circular detection, and status propagation in flock-kernel",
+      "status": "pending",
+      "attempt": 0,
+      "createdAt": "2026-06-07T11:25:17.781Z",
+      "updatedAt": "2026-06-07T11:25:17.781Z"
+    },
+    {
+      "id": "G002-parallel-scheduler",
+      "title": "Parallel Scheduler",
+      "objective": "Build parallel run scheduler that respects max_parallel_runs policy, manages agent allocation, and handles priority queuing",
+      "status": "pending",
+      "attempt": 0,
+      "createdAt": "2026-06-07T11:25:17.781Z",
+      "updatedAt": "2026-06-07T11:25:17.781Z"
+    },
+    {
+      "id": "G003-retry-reviewer-engine",
+      "title": "Retry + Reviewer Engine",
+      "objective": "Build auto-retry with configurable policies and reviewer agent mode with multi-reviewer consensus",
+      "status": "pending",
+      "attempt": 0,
+      "createdAt": "2026-06-07T11:25:17.781Z",
+      "updatedAt": "2026-06-07T11:25:17.781Z"
+    },
+    {
+      "id": "G004-workflow-patterns",
+      "title": "Workflow Patterns",
+      "objective": "Implement multi-agent workflow patterns (sequential chain, parallel fan-out, fan-in) and integrate DAG + scheduler + retry into orchestrator",
+      "status": "pending",
+      "attempt": 0,
+      "createdAt": "2026-06-07T11:25:17.781Z",
+      "updatedAt": "2026-06-07T11:25:17.781Z"
+    },
+    {
+      "id": "G005-cli-api-tests",
+      "title": "CLI + API + Tests",
+      "objective": "Add CLI commands for dependencies/retry/reviewer, update API endpoints, write comprehensive tests for all Phase 3 features",
+      "status": "pending",
+      "attempt": 0,
+      "createdAt": "2026-06-07T11:25:17.781Z",
+      "updatedAt": "2026-06-07T11:25:17.781Z"
+    }
+  ],
+  "claudeObjective": "Complete all ultragoal stories in .omc/ultragoal/goals.json: G001-dag-engine DAG Engine; G002-parallel-scheduler Parallel Scheduler; G003-retry-reviewer-engine Retry + Reviewer Engine; G004-workflow-patterns Workflow Patterns; G005-cli-api-tests CLI + API + Tests"
+}
