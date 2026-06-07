@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock Run Command
  *
@@ -64,7 +65,7 @@ export async function runCommand(
     const updatedRun = db.db
       .select()
       .from(db.schema.runs)
-      .where(eq(db.schema.runs.id, run.id))
+      .where(safeEq(db.schema.runs, "id", run.id))
       .get();
 
     if (!updatedRun) {

@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"pnpm build 2>&1\",\"description\":\"Build flock-api package to verify compilation\"}",
+  "error": "Exit code 2\n\n> @onemancompany/flock-api@0.1.0 build /home/dasimoa/oneManCompany/packages/flock-api\n> tsc -p tsconfig.json\n\nsrc/app.ts(68,30): error TS2352: Conversion of type 'Hono<{ Variables: AppContext; }, BlankSchema, \"/\">' to type 'Hono<BlankEnv, BlankSchema, \"/\">' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.\n  The types of 'get(...).get(...).on' are incompatible between these types.\n    Type ...",
+  "timestamp": "2026-06-07T10:38:14.251Z",
+  "retry_count": 1
+}

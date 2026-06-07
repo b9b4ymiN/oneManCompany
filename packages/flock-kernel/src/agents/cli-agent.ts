@@ -72,11 +72,12 @@ export class CLIAgentAdapter implements AgentAdapter {
 
     // Prepare spawn options
     const gitDir = join(workspacePath, '.git');
-    const spawnEnv: Record<string, string> = {
+    const spawnEnv: NodeJS.ProcessEnv = {
       ...env,
       GIT_WORK_TREE: workspacePath,
       GIT_DIR: gitDir,
-    };
+      NODE_ENV: env.NODE_ENV || process.env.NODE_ENV || 'development',
+    } as NodeJS.ProcessEnv;
 
     const spawnOptions: SpawnOptionsWithoutStdio = {
       cwd: workspacePath,

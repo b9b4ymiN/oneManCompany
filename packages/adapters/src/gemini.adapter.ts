@@ -16,7 +16,7 @@ export class GeminiAdapter implements RuntimeAdapter {
   ): Promise<AdapterResult<TOutput>> {
     const processResult = await runProcess(
       'gemini',
-      ['-p', request.prompt],
+['--output-format', 'json', '-p', request.prompt],
       undefined,
       request.timeout_ms
     );
@@ -72,7 +72,9 @@ export class GeminiAdapter implements RuntimeAdapter {
   async healthCheck(): Promise<BackendHealthStatus> {
     const processResult = await runProcess(
       'gemini',
-      [
+[
+        '--output-format',
+        'json',
         '-p',
         'respond with JSON exactly: {"status":"ok","model":"gemini-2-flash"}',
       ],

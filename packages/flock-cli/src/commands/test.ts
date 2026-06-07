@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock Test Command
  *
@@ -28,7 +29,7 @@ export async function testCommand(taskId: string): Promise<void> {
   const task = db.db
     .select()
     .from(db.schema.tasks)
-    .where(eq(db.schema.tasks.id, taskId))
+    .where(safeEq(db.schema.tasks, "id", taskId))
     .get();
 
   if (!task) {
@@ -40,7 +41,7 @@ export async function testCommand(taskId: string): Promise<void> {
   const run = db.db
     .select()
     .from(db.schema.runs)
-    .where(eq(db.schema.runs.task_id, taskId))
+    .where(safeEq(db.schema.runs, "task_id", taskId))
     .orderBy(db.schema.runs.started_at)
     .all().pop();
 

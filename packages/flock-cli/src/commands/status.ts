@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock Status Command
  *
@@ -37,7 +38,7 @@ export async function statusCommand(taskId?: string): Promise<void> {
     const task = db.db
       .select()
       .from(db.schema.tasks)
-      .where(eq(db.schema.tasks.id, taskId))
+      .where(safeEq(db.schema.tasks, "id", taskId))
       .get();
 
     if (!task) {
@@ -49,14 +50,14 @@ export async function statusCommand(taskId?: string): Promise<void> {
     const project = db.db
       .select()
       .from(db.schema.projects)
-      .where(eq(db.schema.projects.id, task.project_id))
+      .where(safeEq(db.schema.projects, "id", task.project_id))
       .get();
 
     // Get runs
     const runs = db.db
       .select()
       .from(db.schema.runs)
-      .where(eq(db.schema.runs.task_id, taskId))
+      .where(safeEq(db.schema.runs, "task_id", taskId))
       .orderBy(db.schema.runs.started_at)
       .all();
 
@@ -64,14 +65,14 @@ export async function statusCommand(taskId?: string): Promise<void> {
     const gates = db.db
       .select()
       .from(db.schema.gates)
-      .where(eq(db.schema.gates.task_id, taskId))
+      .where(safeEq(db.schema.gates, "task_id", taskId))
       .all();
 
     // Get reviews
     const reviews = db.db
       .select()
       .from(db.schema.reviews)
-      .where(eq(db.schema.reviews.task_id, taskId))
+      .where(safeEq(db.schema.reviews, "task_id", taskId))
       .orderBy(db.schema.reviews.created_at)
       .all();
 
@@ -130,7 +131,7 @@ export async function statusCommand(taskId?: string): Promise<void> {
     const tasks = db.db
       .select()
       .from(db.schema.tasks)
-      .orderBy(desc(db.schema.tasks.updated_at))
+      .orderBy(safeDesc(db.schema.tasks, "updated_at"))
       .all();
 
     if (tasks.length === 0) {

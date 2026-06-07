@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock List Command
  *
@@ -35,7 +36,7 @@ export async function listCommand(): Promise<void> {
   const tasks = db.db
     .select()
     .from(db.schema.tasks)
-    .orderBy(desc(db.schema.tasks.updated_at))
+    .orderBy(safeDesc(db.schema.tasks, "updated_at"))
     .all();
 
   if (tasks.length === 0) {
@@ -53,8 +54,8 @@ export async function listCommand(): Promise<void> {
     const run = db.db
       .select()
       .from(db.schema.runs)
-      .where(eq(db.schema.runs.task_id, task.id))
-      .orderBy(desc(db.schema.runs.started_at))
+      .where(safeEq(db.schema.runs, "task_id", task.id))
+      .orderBy(safeDesc(db.schema.runs, "started_at"))
       .limit(1)
       .get();
 
@@ -62,14 +63,14 @@ export async function listCommand(): Promise<void> {
     const gates = db.db
       .select()
       .from(db.schema.gates)
-      .where(eq(db.schema.gates.task_id, task.id))
+      .where(safeEq(db.schema.gates, "task_id", task.id))
       .all();
 
     // Get reviews
     const reviews = db.db
       .select()
       .from(db.schema.reviews)
-      .where(eq(db.schema.reviews.task_id, task.id))
+      .where(safeEq(db.schema.reviews, "task_id", task.id))
       .all();
 
     // Build gate summary
@@ -93,7 +94,9 @@ export async function listCommand(): Promise<void> {
     let reviewInfo = '';
     if (reviews.length > 0) {
       const latestReview = reviews[reviews.length - 1];
-      reviewInfo = ` | Review: ${latestReview.verdict} by ${latestReview.reviewer}`;
+      if (latestReview) {
+        reviewInfo = ` | Review: ${latestReview.verdict} by ${latestReview.reviewer}`;
+      }
     }
 
     console.log(`${icon} ${task.id}: ${task.title}`);

@@ -6,6 +6,8 @@
     { "path": "./packages/observability" },
     { "path": "./packages/cli" },
     { "path": "./packages/flock-kernel" },
-    { "path": "./packages/flock-cli" }
+    { "path": "./packages/flock-cli" },
+    { "path": "./packages/flock-api" },
+    { "path": "./apps/flock-web" }
   ]
 }

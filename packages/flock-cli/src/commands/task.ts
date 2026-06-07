@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock Task Commands
  *
@@ -68,7 +69,7 @@ function taskCreateAction(
   const project = db.db
     .select()
     .from(db.schema.projects)
-    .where(eq(db.schema.projects.id, projectId))
+    .where(safeEq(db.schema.projects, "id", projectId))
     .get();
 
   if (!project) {
@@ -80,7 +81,7 @@ function taskCreateAction(
   const taskCount = db.db
     .select()
     .from(db.schema.tasks)
-    .where(eq(db.schema.tasks.project_id, projectId))
+    .where(safeEq(db.schema.tasks, "project_id", projectId))
     .all().length;
 
   const taskId = generateTaskId(taskCount);
@@ -95,7 +96,7 @@ function taskCreateAction(
   }
 
   // Create task
-  db.db.insert(db.schema.tasks).values({
+  (db.db.insert(db.schema.tasks).values as any)({
     id: taskId,
     project_id: projectId,
     title,

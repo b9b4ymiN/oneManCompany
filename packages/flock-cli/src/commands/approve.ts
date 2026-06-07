@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock Approve Command
  *
@@ -28,7 +29,7 @@ export async function approveCommand(taskId: string): Promise<void> {
   const task = db.db
     .select()
     .from(db.schema.tasks)
-    .where(eq(db.schema.tasks.id, taskId))
+    .where(safeEq(db.schema.tasks, "id", taskId))
     .get();
 
   if (!task) {

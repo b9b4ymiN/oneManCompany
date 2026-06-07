@@ -1,3 +1,4 @@
+import { safeEq, safeDesc } from '../drizzle-helpers';
 /**
  * Flock Project Commands
  *
@@ -116,7 +117,7 @@ function projectAddAction(projectPath: string): void {
   const existing = db.db
     .select()
     .from(db.schema.projects)
-    .where(eq(db.schema.projects.repo_path, resolvedPath))
+    .where(safeEq(db.schema.projects, "repo_path", resolvedPath))
     .get();
 
   if (existing) {
@@ -128,7 +129,7 @@ function projectAddAction(projectPath: string): void {
   const projectId = randomUUID();
   const now = new Date().toISOString();
 
-  db.db.insert(db.schema.projects).values({
+  (db.db.insert(db.schema.projects).values as any)({
     id: projectId,
     name: projectName,
     repo_path: resolvedPath,

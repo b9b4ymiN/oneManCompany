@@ -25,7 +25,9 @@
       "@onemancompany/cli": ["packages/cli/src/index.ts"],
       "@onemancompany/cli/*": ["packages/cli/src/*"],
       "@onemancompany/flock-kernel": ["packages/flock-kernel/src/index.ts"],
-      "@onemancompany/flock-kernel/*": ["packages/flock-kernel/src/*"]
+      "@onemancompany/flock-kernel/*": ["packages/flock-kernel/src/*"],
+      "@onemancompany/flock-api": ["packages/flock-api/src/index.ts"],
+      "@onemancompany/flock-api/*": ["packages/flock-api/src/*"]
     }
   }
 }

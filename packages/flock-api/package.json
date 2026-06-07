@@ -1,0 +1,27 @@
+{
+  "name": "@onemancompany/flock-api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.0.4",
+    "@onemancompany/flock-kernel": "workspace:*",
+    "better-sqlite3": "^11.8.1",
+    "drizzle-orm": "^0.38.2",
+    "hono": "^4.12.23",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "vitest": "^2.1.8"
+  }
+}
